@@ -1,0 +1,1 @@
+set table=en-ueb-g2.ctb

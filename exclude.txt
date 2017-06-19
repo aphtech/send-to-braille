@@ -1,0 +1,3 @@
+lt.dat
+lt_patch.exe
+lt_doc.mp3

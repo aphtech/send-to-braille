@@ -1,0 +1,7 @@
+[autorun]
+icon=lt_image\lt.ico
+open=autorun.exe lt_setup.exe
+code=lt
+name=Send To Braille Shortcut
+version=1.0.0.0
+exe=lt_setup.exe /silent

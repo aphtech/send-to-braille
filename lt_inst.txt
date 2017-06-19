@@ -1,0 +1,2 @@
+This installs Lou Translate, a program that braille translation tool.
+Do you wish to continue?

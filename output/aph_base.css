@@ -1,0 +1,585 @@
+/* APH Daisy and HTML CSS for 2004 */
+body
+{
+    display: block;
+    margin: 1em 1em 1em 1em;
+    font-family: verdana, arial, sans-serif;
+    font-size: 100%;
+}
+head
+{
+    display: none
+}
+frontmatter, .frontmatter
+{
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em
+}
+doctitle, .doctitle
+{
+    display: block;
+    font-weight: bold;
+}
+docauthor, .docauthor, covertitle, .covertitle
+{
+    display: inline;
+    font-weight: bold;
+}
+bodymatter, .bodymatter
+{
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em
+}
+rearmatter, .rearmatter
+{
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em
+}
+h1, level levelhd, div div .levelhd
+{
+    display: block;
+    font-weight: bold;
+    margin-top: 1.4em;
+    margin-bottom: 0.5em
+}
+h2, level level levelhd, div div div.levelhd
+{
+    display: block;
+    font-weight: bold;
+    margin-top: 1.2em;
+    margin-bottom: 0.5em
+}
+h3, level level level levelhd, div div div div .levelhd
+{
+    font-weight: bold;
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0.5em
+}
+h4, level level level level levelhd
+{
+    display: block;
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 0.5em
+}
+h5, level level level level level levelhd, div div div div div div levelhd
+{
+    display: block;
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 0.5em
+}
+h6, level level level level level level levelhd, div div div div div div div .levlehd
+{
+    display: block;
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 0.5em
+}
+bridgehead, .bridgehead, hd, .hd
+{
+    display: block;
+    font-weight: bold;
+}
+pagenum, .pagenum
+{
+    display: inline;
+    border: medium solid;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+    padding-left: 1em;
+}
+level pagenum, level1 pagenum, level2 pagenum,
+    level3 pagenum, level4 pagenum,
+    level5 pagenum, level6 pagenum
+{
+    display: block
+}
+linenum, .linenum
+{
+    display: inline
+}
+linenum:unknown
+{
+    content: " "
+}
+div
+{
+    display: block
+}
+p
+{
+    display: block
+    margin-top: 0.7em;
+}
+prodnote, .prognote
+{
+    display: block;
+    border: medium solid;
+    padding-right: 0.2em;
+    padding-top: 0.2em;
+    padding-left: 0.2em;
+    padding-bottom: 0.2em;
+    margin: 0.3em;
+}
+notice, .notice
+{
+    display: block;
+    border-right: black 1px solid;
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+    padding-right: 0.2em;
+    padding-top: 0.2em;
+    padding-left: 0.2em;
+    padding-bottom: 0.2em;
+    margin: 0.3em;
+}
+sidebar, .sidebar
+{
+    display: block;
+    border-style: double;
+    padding-right: 0.5em;
+    margin-top: 1.5em;
+    padding-left: 0.5em;
+    margin-bottom: 1.5em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+div sidebar, div div .sidebar
+{
+    clear: both;
+    float: right;
+    margin-left: 1em;
+    margin-right: 1em
+}
+prodnote sidebar, div div .sidebar
+{
+    clear: both;
+    float: right;
+    margin-left: 1em;
+    margin-right: 1em
+}
+sidebar sidebar
+{
+    clear: both;
+    float: right;
+    margin-left: 1em;
+    margin-right: 1em
+}
+note sidebar
+{
+    clear: both;
+    float: right;
+    margin-left: 1em;
+    margin-right: 1em
+}
+annotation sidebar
+{
+    clear: both;
+    float: right;
+    margin-left: 1em;
+    margin-right: 1em
+}
+blockquote sidebar, blockquote .sidebar
+{
+    clear: both;
+    float: right;
+    margin-left: 1em;
+    margin-right: 1em
+}
+dd sidebar, li sidebar, th sidebar
+    td sidebar, 
+    frontmatter sidebar,
+    bodymatter sidebar
+    rearmatter sidebar
+{
+    clear: both;
+    float: right;
+    margin-left: 1em;
+    margin-right: 1em
+}
+
+level sidebar
+{
+}
+level1 sidebar
+{
+}
+level2 sidebar
+{
+}
+level3 sidebar
+{
+}
+level4 sidebar
+{
+}
+level5 sidebar
+{
+}
+level6 sidebar
+{
+}
+address
+{
+    display: block;
+    margin-top: 2em;
+    margin-bottom: 2em
+}
+note, .note
+{
+    display: block;
+    border-top: black 1px solid;
+    border-bottom: black 1px solid
+    padding-right: 1em;
+    padding-top: 0.5em;
+    padding-left: 1em;
+    padding-bottom: 0.5em;
+    margin: 1.2em 1em;
+}
+blockquote
+{
+    margin-top: 0.6em;
+    display: block;
+    margin-bottom: 0.6em;
+    margin-left: 2em
+}
+line, .line
+{
+    display: block;
+    margin: 0em
+}
+poem, .poem
+{
+    display: block;
+    margin-left: 3em
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+poem title, div div .title
+{
+    display: block;
+}
+linegroup, .linegroup
+{
+    display: block
+    margin-top: 0.6em;
+}
+dateline, byline
+{
+     display: block;  
+}
+epigraph, .epigraph
+{
+    display: block;  
+    margin-top: 2em;
+    margin-bottom: 2em;
+    margin-left: 3em;
+    font-style: italic; 
+}
+
+a
+{
+    display: inline;
+    color: #0000ff;
+    text-decoration: underline
+}
+bdo
+{
+    display: inline
+}
+em
+{
+    display: inline;
+    font-style: italic
+}
+strong
+{
+    display: inline;
+    font-weight: bold
+}
+kbd
+{
+    display: inline;
+    padding-right: 0.2em;
+    padding-left: 0.2em;
+    font-size: 90%;
+    background: #000000;
+    padding-bottom: 0.2em;
+    color: #ffffff;
+    padding-top: 0.2em;
+    font-variant: small-caps
+}
+span
+{
+    display: inline
+}
+sub
+{
+    display: inline;
+    padding-right: 0.3em;
+    padding-left: 0.3em;
+    font-size: 90%;
+    vertical-align: sub
+}
+sup
+{
+    padding-right: 0.3em;
+    display: inline;
+    padding-left: 0.3em;
+    font-size: 90%;
+    vertical-align: super
+}
+abbr
+{
+    display: inline;
+    border-bottom: gray 1px dotted
+}
+acronym
+{
+    display: inline;
+    border-bottom: gray 1px dotted
+}
+dfn
+{
+    display: inline
+}
+code
+{
+    display: inline;
+    font-family: courier, verdana, arial, sans-serif
+}
+samp
+{
+    display: inline
+}
+cite
+{
+    display: inline
+}
+cite title
+{
+    display: inline;
+    border-bottom: 1px solid grey
+}
+cite author
+{
+    display: inline;    
+}
+
+br
+{
+    display: block
+}
+q, .q
+{
+    display: inline;
+    font-style: italic
+}
+noteref, .noteref
+{
+    border-right: #d2d2d2 1px solid;
+    padding-right: 0.3em;
+    border-top: #d2d2d2 1px solid;
+    display: inline;
+    padding-left: 0.3em;
+    font-size: 0.7em;
+    vertical-align: super;
+    border-left: #d2d2d2 1px solid;
+    border-bottom: #d2d2d2 1px solid
+}
+annoref, .annoref
+{
+    border-right: #d2d2d2 1px solid;
+    padding-right: 0.3em;
+    border-top: #d2d2d2 1px solid;
+    display: inline;
+    padding-left: 0.3em;
+    font-size: 0.7em;
+    vertical-align: super;
+    border-left: #d2d2d2 1px solid;
+    border-bottom: #d2d2d2 1px solid
+}
+sent, .sent
+{
+    display: inline;
+    margin: 0em
+}
+w, .w
+{
+    display: inline;
+    margin: 0em
+}
+list, .list
+{
+    margin-top: 1em;
+    display: block;
+    margin-bottom: 1em;
+    margin-left: 1em
+}
+.plain
+{
+    list-style-type: none;
+    text-indent: -1em;    
+}
+.decimal
+{
+    list-style-type: decimal
+}
+.loweralpha
+{
+    list-style-type: lower-alpha
+}
+.upperalpha
+{
+    list-style-type: upper-alpha
+}
+.lowerroman
+{
+    list-style-type: lower-roman
+}
+.upperroman
+{
+    list-style-type: upper-roman
+}
+li, .li
+{
+    display: list-item;
+}   
+}
+lic, .lic
+{
+    display: inline
+}
+unknown
+{
+    list-style-type: decimal
+}
+unknown
+{
+    list-style-type: lower-alpha
+}
+unknown
+{
+    list-style-type: upper-alpha
+}
+unknown
+{
+    list-style-type: lower-roman
+}
+unknown
+{
+    list-style-type: upper-roman
+}
+unknown
+{
+    list-style-type: disc
+}
+unknown
+{
+    list-style-type: circle
+}
+unknown
+{
+    list-style-type: square
+}
+unknown
+{
+    margin-top: 0em;
+    margin-bottom: 0em
+}
+dl
+{
+    display: block
+}
+dt
+{
+    display: block
+    margin-top: 0.4em;
+    font-weight: bold
+}
+dd
+{
+    display: block
+}
+table
+{
+    display: table;
+    table-layout: auto;
+    margin-top: 2emx;
+    margin-bottom: 2em;
+}
+tr
+{
+    display: table-row;
+
+}
+col
+{
+    display: table-column
+}
+colgroup
+{
+    display: table-column-group;
+}
+tbody
+{
+    display: table-row-group
+}
+thead
+{
+    display: table-row-group
+}
+tfoot
+{
+    display: table-footer-group
+}
+td
+{
+    display: table-cell;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    padding-top: 2px
+}
+th
+{
+    display: table-cell;
+    font-weight: bold;
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    padding-top: 2px
+}
+img
+{
+    display: inline;
+    margin-left: 0;
+}
+imggroup, .imggroup
+{
+    display: inline
+}
+div .frontmatter
+{
+
+    text-align: center;
+    page-break-after: always
+}
+@media print {
+  * {
+    background-color: white !important;
+    background-image: none !important;
+    shrink-to-fit: 100%;
+  }
+  .imgprn
+  {
+    float: none;
+    width: 99%;
+  }
+}
