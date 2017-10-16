@@ -8,7 +8,7 @@ rem Set the translation table, this one is English UEB contracted
 set table=en-ueb-g2.ctb
 rem call %x%settable.bat
 
-type %1|%x%lou_translate %louflg% %table%> %1.txt
+type %1|%x%lou_translate %louflg% %table%> %1.txt 2> %temp%\lou_translate.log
 rem Open editor. Rem the following line to skip this step
 rem %x%bz.jar "%~1.brl"
 rem if you want, add a line like the one below to copy to a card. Set target to your drive
