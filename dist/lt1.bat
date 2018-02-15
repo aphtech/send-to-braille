@@ -9,9 +9,9 @@ rem call %x%settable.bat
 
 rem pandoc to text then LouTran to braille with .brl appended to original file name, avoiding UTF-8 encoding when appropriate:
 set utf8=false
-if not "%~x1"==".docx" if not "%~x1"==".epub" if not "%~x1"==".odt" (
+if /I not "%~x1"==".docx" if /I not "%~x1"==".epub" if /I not "%~x1"==".odt" (
     set utf8=true
-    copy %1 "%temp%\Utf8n%~x1"
+    copy /B %1 "%temp%\Utf8n%~x1"
     %x%Utf8n "%temp%\Utf8n%~x1"
     %x%pandoc -t plain --wrap=preserve "%temp%\Utf8n%~x1" 2> %temp%\pandoc.log|%x%lou_translate %table% > %1.brl 2> %temp%\lou_translate.log
     del "%temp%\Utf8n%~x1"
