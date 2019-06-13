@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="John MacFarlane" />
-  <meta name="dcterms.date" content="2018-01-18" />
+  <meta name="dcterms.date" content="2018-09-16" />
   <title>Pandoc User’s Guide</title>
   <style type="text/css">
       code{white-space: pre-wrap;}
@@ -18,10 +18,10 @@
   <![endif]-->
 </head>
 <body>
-<header>
+<header id="title-block-header">
 <h1 class="title">Pandoc User’s Guide</h1>
 <p class="author">John MacFarlane</p>
-<p class="date">January 18, 2018</p>
+<p class="date">September 16, 2018</p>
 </header>
 <nav id="TOC">
 <ul>
@@ -120,13 +120,18 @@
 <li><a href="#speaker-notes">Speaker notes</a></li>
 <li><a href="#columns">Columns</a></li>
 <li><a href="#frame-attributes-in-beamer">Frame attributes in beamer</a></li>
+<li><a href="#background-in-reveal.js-and-beamer">Background in reveal.js and beamer</a></li>
 </ul></li>
 <li><a href="#creating-epubs-with-pandoc">Creating EPUBs with pandoc</a><ul>
 <li><a href="#epub-metadata">EPUB Metadata</a></li>
+<li><a href="#the-epubtype-attribute">The <code>epub:type</code> attribute</a></li>
 <li><a href="#linked-media">Linked media</a></li>
 </ul></li>
 <li><a href="#syntax-highlighting">Syntax highlighting</a></li>
-<li><a href="#custom-styles-in-docx-output">Custom Styles in Docx Output</a></li>
+<li><a href="#custom-styles-in-docx">Custom Styles in Docx</a><ul>
+<li><a href="#input">Input</a></li>
+<li><a href="#output">Output</a></li>
+</ul></li>
 <li><a href="#custom-writers">Custom writers</a></li>
 <li><a href="#authors">Authors</a></li>
 </ul>
@@ -135,10 +140,9 @@
 <p><code>pandoc</code> [<em>options</em>] [<em>input-file</em>]…</p>
 <h1 id="description">Description</h1>
 <p>Pandoc is a <a href="https://www.haskell.org">Haskell</a> library for converting from one markup format to another, and a command-line tool that uses this library.</p>
-<p>Pandoc can read <a href="http://daringfireball.net/projects/markdown/">Markdown</a>, <a href="http://commonmark.org">CommonMark</a>, <a href="https://michelf.ca/projects/php-markdown/extra/">PHP Markdown Extra</a>, <a href="https://help.github.com/articles/github-flavored-markdown/">GitHub-Flavored Markdown</a>, <a href="http://fletcherpenney.net/multimarkdown/">MultiMarkdown</a>, and (subsets of) <a href="http://redcloth.org/textile">Textile</a>, <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>, <a href="http://www.w3.org/html/">HTML</a>, <a href="http://latex-project.org">LaTeX</a>, <a href="https://www.mediawiki.org/wiki/Help:Formatting">MediaWiki markup</a>, <a href="http://twiki.org/cgi-bin/view/TWiki/TextFormattingRules">TWiki markup</a>, <a href="https://doc.tiki.org/Wiki-Syntax-Text#The_Markup_Language_Wiki-Syntax">TikiWiki markup</a>, <a href="http://www.wikicreole.org/wiki/Creole1.0">Creole 1.0</a>, <a href="https://www.haskell.org/haddock/doc/html/ch03s08.html">Haddock markup</a>, <a href="http://dev.opml.org/spec2.html">OPML</a>, <a href="http://orgmode.org">Emacs Org mode</a>, <a href="http://docbook.org">DocBook</a>, <a href="https://jats.nlm.nih.gov">JATS</a>, <a href="https://amusewiki.org/library/manual">Muse</a>, <a href="http://txt2tags.org">txt2tags</a>, <a href="https://vimwiki.github.io">Vimwiki</a>, <a href="http://idpf.org/epub">EPUB</a>, <a href="http://en.wikipedia.org/wiki/OpenDocument">ODT</a>, and <a href="https://en.wikipedia.org/wiki/Office_Open_XML">Word docx</a>.</p>
-<p>Pandoc can write plain text, <a href="http://daringfireball.net/projects/markdown/">Markdown</a>, <a href="http://commonmark.org">CommonMark</a>, <a href="https://michelf.ca/projects/php-markdown/extra/">PHP Markdown Extra</a>, <a href="https://help.github.com/articles/github-flavored-markdown/">GitHub-Flavored Markdown</a>, <a href="http://fletcherpenney.net/multimarkdown/">MultiMarkdown</a>, <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>, <a href="http://www.w3.org/TR/xhtml1/">XHTML</a>, <a href="http://www.w3.org/TR/html5/">HTML5</a>, <a href="http://latex-project.org">LaTeX</a> (including <a href="https://ctan.org/pkg/beamer"><code>beamer</code></a> slide shows), <a href="http://www.contextgarden.net/">ConTeXt</a>, <a href="http://en.wikipedia.org/wiki/Rich_Text_Format">RTF</a>, <a href="http://dev.opml.org/spec2.html">OPML</a>, <a href="http://docbook.org">DocBook</a>, <a href="https://jats.nlm.nih.gov">JATS</a>, <a href="http://opendocument.xml.org">OpenDocument</a>, <a href="http://en.wikipedia.org/wiki/OpenDocument">ODT</a>, <a href="https://en.wikipedia.org/wiki/Office_Open_XML">Word docx</a>, <a href="http://www.gnu.org/software/texinfo/">GNU Texinfo</a>, <a href="https://www.mediawiki.org/wiki/Help:Formatting">MediaWiki markup</a>, <a href="https://www.dokuwiki.org/dokuwiki">DokuWiki markup</a>, <a href="http://zim-wiki.org/manual/Help/Wiki_Syntax.html">ZimWiki markup</a>, <a href="https://www.haskell.org/haddock/doc/html/ch03s08.html">Haddock markup</a>, <a href="http://idpf.org/epub">EPUB</a> (v2 or v3), <a href="http://www.fictionbook.org/index.php/Eng:XML_Schema_Fictionbook_2.1">FictionBook2</a>, <a href="http://redcloth.org/textile">Textile</a>, <a href="http://man7.org/linux/man-pages/man7/groff_man.7.html">groff man</a>, <a href="http://man7.org/linux/man-pages/man7/groff_ms.7.html">groff ms</a>, <a href="http://orgmode.org">Emacs Org mode</a>, <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>, <a href="http://wwwimages.adobe.com/www.adobe.com/content/dam/acom/en/devnet/indesign/sdk/cs6/idml/idml-cookbook.pdf">InDesign ICML</a>, <a href="https://github.com/TEIC/TEI-Simple">TEI Simple</a>, <a href="https://amusewiki.org/library/manual">Muse</a>, <a href="https://en.wikipedia.org/wiki/Microsoft_PowerPoint">PowerPoint</a> slide shows and <a href="http://www.w3.org/Talks/Tools/Slidy/">Slidy</a>, <a href="http://goessner.net/articles/slideous/">Slideous</a>, <a href="http://paulrouget.com/dzslides/">DZSlides</a>, <a href="http://lab.hakim.se/reveal-js/">reveal.js</a> or <a href="http://meyerweb.com/eric/tools/s5/">S5</a> HTML slide shows. It can also produce <a href="https://www.adobe.com/pdf/">PDF</a> output on systems where LaTeX, ConTeXt, <code>pdfroff</code>, <code>wkhtmltopdf</code>, <code>prince</code>, or <code>weasyprint</code> is installed.</p>
-<p>Pandoc’s enhanced version of Markdown includes syntax for <a href="#tables">tables</a>, <a href="#definition-lists">definition lists</a>, <a href="#metadata-blocks">metadata blocks</a>, <a href="#extension-fenced_divs"><code>Div</code> blocks</a>, <a href="#footnotes">footnotes</a> and <a href="#citations">citations</a>, embedded <a href="#extension-raw_tex">LaTeX</a> (including <a href="#math">math</a>), <a href="#extension-markdown_in_html_blocks">Markdown inside HTML block elements</a>, and much more. These enhancements, described further under <a href="#pandocs-markdown">Pandoc’s Markdown</a>, can be disabled using the <code>markdown_strict</code> format.</p>
-<p>Pandoc has a modular design: it consists of a set of readers, which parse text in a given format and produce a native representation of the document (like an <em>abstract syntax tree</em> or AST), and a set of writers, which convert this native representation into a target format. Thus, adding an input or output format requires only adding a reader or writer. Users can also run custom <a href="http://pandoc.org/filters.html">pandoc filters</a> to modify the intermediate AST.</p>
+<p>Pandoc can convert between numerous markup and word processing formats, including, but not limited to, various flavors of <a href="http://daringfireball.net/projects/markdown/">Markdown</a>, <a href="http://www.w3.org/html/">HTML</a>, <a href="http://latex-project.org">LaTeX</a> and <a href="https://en.wikipedia.org/wiki/Office_Open_XML">Word docx</a>. For the full lists of input and output formats, see the <code>--from</code> and <code>--to</code> <a href="#general-options">options below</a>. Pandoc can also produce <a href="https://www.adobe.com/pdf/">PDF</a> output: see <a href="#creating-a-pdf">creating a PDF</a>, below.</p>
+<p>Pandoc’s enhanced version of Markdown includes syntax for <a href="#tables">tables</a>, <a href="#definition-lists">definition lists</a>, <a href="#metadata-blocks">metadata blocks</a>, <a href="#footnotes">footnotes</a>, <a href="#citations">citations</a>, <a href="#math">math</a>, and much more. See below under <a href="#pandocs-markdown">Pandoc’s Markdown</a>.</p>
+<p>Pandoc has a modular design: it consists of a set of readers, which parse text in a given format and produce a native representation of the document (an <em>abstract syntax tree</em> or AST), and a set of writers, which convert this native representation into a target format. Thus, adding an input or output format requires only adding a reader or writer. Users can also run custom <a href="http://pandoc.org/filters.html">pandoc filters</a> to modify the intermediate AST.</p>
 <p>Because pandoc’s intermediate representation of a document is less expressive than many of the formats it converts between, one should not expect perfect conversions between every format and every other. Pandoc attempts to preserve the structural elements of a document, but not formatting details such as margin size. And some document elements, such as complex tables, may not fit into pandoc’s simple document model. While conversions from pandoc’s Markdown to all formats aspire to be perfect, conversions from formats more expressive than pandoc’s Markdown can be expected to be lossy.</p>
 <h2 id="using-pandoc">Using <code>pandoc</code></h2>
 <p>If no <em>input-files</em> are specified, input is read from <em>stdin</em>. Output goes to <em>stdout</em> by default. For output to a file, use the <code>-o</code> option:</p>
@@ -165,9 +169,9 @@
 <pre><code>pandoc test.txt -o test.pdf</code></pre>
 <p>By default, pandoc will use LaTeX to create the PDF, which requires that a LaTeX engine be installed (see <code>--pdf-engine</code> below).</p>
 <p>Alternatively, pandoc can use <a href="http://www.contextgarden.net/">ConTeXt</a>, <code>pdfroff</code>, or any of the following HTML/CSS-to-PDF-engines, to create a PDF: <a href="https://wkhtmltopdf.org"><code>wkhtmltopdf</code></a>, <a href="http://weasyprint.org"><code>weasyprint</code></a> or <a href="https://www.princexml.com/"><code>prince</code></a>. To do this, specify an output file with a <code>.pdf</code> extension, as before, but add the <code>--pdf-engine</code> option or <code>-t context</code>, <code>-t html</code>, or <code>-t ms</code> to the command line (<code>-t html</code> defaults to <code>--pdf-engine=wkhtmltopdf</code>).</p>
-<p>PDF output can be controlled using <a href="#variables-for-latex">variables for LaTeX</a> (if LaTeX is used) and <a href="#variables-for-context">variables for ConTeXt</a> (if ConTeXt is used). When using an HTML/CSS-to-PDF-engine, <code>--css</code> affects the output. If <code>wkhtmltopdf</code> is used, then the variables <code>margin-left</code>, <code>margin-right</code>, <code>margin-top</code>, <code>margin-bottom</code>, and <code>papersize</code> will affect the output.</p>
+<p>PDF output can be controlled using <a href="#variables-for-latex">variables for LaTeX</a> (if LaTeX is used) and <a href="#variables-for-context">variables for ConTeXt</a> (if ConTeXt is used). When using an HTML/CSS-to-PDF-engine, <code>--css</code> affects the output. If <code>wkhtmltopdf</code> is used, then the variables <code>margin-left</code>, <code>margin-right</code>, <code>margin-top</code>, <code>margin-bottom</code>, <code>footer-html</code>, <code>header-html</code> and <code>papersize</code> will affect the output.</p>
 <p>To debug the PDF creation, it can be useful to look at the intermediate representation: instead of <code>-o test.pdf</code>, use for example <code>-s -o test.tex</code> to output the generated LaTeX. You can then test it with <code>pdflatex test.tex</code>.</p>
-<p>When using LaTeX, the following packages need to be available (they are included with all recent versions of <a href="http://www.tug.org/texlive/">TeX Live</a>): <a href="https://ctan.org/pkg/amsfonts"><code>amsfonts</code></a>, <a href="https://ctan.org/pkg/amsmath"><code>amsmath</code></a>, <a href="https://ctan.org/pkg/lm"><code>lm</code></a>, <a href="https://ctan.org/pkg/unicode-math"><code>unicode-math</code></a>, <a href="https://ctan.org/pkg/ifxetex"><code>ifxetex</code></a>, <a href="https://ctan.org/pkg/ifluatex"><code>ifluatex</code></a>, <a href="https://ctan.org/pkg/listings"><code>listings</code></a> (if the <code>--listings</code> option is used), <a href="https://ctan.org/pkg/fancyvrb"><code>fancyvrb</code></a>, <a href="https://ctan.org/pkg/longtable"><code>longtable</code></a>, <a href="https://ctan.org/pkg/booktabs"><code>booktabs</code></a>, <a href="https://ctan.org/pkg/graphicx"><code>graphicx</code></a> and <a href="https://ctan.org/pkg/grffile"><code>grffile</code></a> (if the document contains images), <a href="https://ctan.org/pkg/hyperref"><code>hyperref</code></a>, <a href="https://ctan.org/pkg/xcolor"><code>xcolor</code></a> (with <code>colorlinks</code>), <a href="https://ctan.org/pkg/ulem"><code>ulem</code></a>, <a href="https://ctan.org/pkg/geometry"><code>geometry</code></a> (with the <code>geometry</code> variable set), <a href="https://ctan.org/pkg/setspace"><code>setspace</code></a> (with <code>linestretch</code>), and <a href="https://ctan.org/pkg/babel"><code>babel</code></a> (with <code>lang</code>). The use of <code>xelatex</code> or <code>lualatex</code> as the LaTeX engine requires <a href="https://ctan.org/pkg/fontspec"><code>fontspec</code></a>. <code>xelatex</code> uses <a href="https://ctan.org/pkg/polyglossia"><code>polyglossia</code></a> (with <code>lang</code>), <a href="https://ctan.org/pkg/xecjk"><code>xecjk</code></a>, and <a href="https://ctan.org/pkg/bidi"><code>bidi</code></a> (with the <code>dir</code> variable set). If the <code>mathspec</code> variable is set, <code>xelatex</code> will use <a href="https://ctan.org/pkg/mathspec"><code>mathspec</code></a> instead of <a href="https://ctan.org/pkg/unicode-math"><code>unicode-math</code></a>. The <a href="https://ctan.org/pkg/upquote"><code>upquote</code></a> and <a href="https://ctan.org/pkg/microtype"><code>microtype</code></a> packages are used if available, and <a href="https://ctan.org/pkg/csquotes"><code>csquotes</code></a> will be used for <a href="#typography">typography</a> if added to the template or included in any header file. The <a href="https://ctan.org/pkg/natbib"><code>natbib</code></a>, <a href="https://ctan.org/pkg/biblatex"><code>biblatex</code></a>, <a href="https://ctan.org/pkg/bibtex"><code>bibtex</code></a>, and <a href="https://ctan.org/pkg/biber"><code>biber</code></a> packages can optionally be used for <a href="#citation-rendering">citation rendering</a>.</p>
+<p>When using LaTeX, the following packages need to be available (they are included with all recent versions of <a href="http://www.tug.org/texlive/">TeX Live</a>): <a href="https://ctan.org/pkg/amsfonts"><code>amsfonts</code></a>, <a href="https://ctan.org/pkg/amsmath"><code>amsmath</code></a>, <a href="https://ctan.org/pkg/lm"><code>lm</code></a>, <a href="https://ctan.org/pkg/unicode-math"><code>unicode-math</code></a>, <a href="https://ctan.org/pkg/ifxetex"><code>ifxetex</code></a>, <a href="https://ctan.org/pkg/ifluatex"><code>ifluatex</code></a>, <a href="https://ctan.org/pkg/listings"><code>listings</code></a> (if the <code>--listings</code> option is used), <a href="https://ctan.org/pkg/fancyvrb"><code>fancyvrb</code></a>, <a href="https://ctan.org/pkg/longtable"><code>longtable</code></a>, <a href="https://ctan.org/pkg/booktabs"><code>booktabs</code></a>, <a href="https://ctan.org/pkg/graphicx"><code>graphicx</code></a> and <a href="https://ctan.org/pkg/grffile"><code>grffile</code></a> (if the document contains images), <a href="https://ctan.org/pkg/hyperref"><code>hyperref</code></a>, <a href="https://ctan.org/pkg/xcolor"><code>xcolor</code></a> (with <code>colorlinks</code>), <a href="https://ctan.org/pkg/ulem"><code>ulem</code></a>, <a href="https://ctan.org/pkg/geometry"><code>geometry</code></a> (with the <code>geometry</code> variable set), <a href="https://ctan.org/pkg/setspace"><code>setspace</code></a> (with <code>linestretch</code>), and <a href="https://ctan.org/pkg/babel"><code>babel</code></a> (with <code>lang</code>). The use of <code>xelatex</code> or <code>lualatex</code> as the LaTeX engine requires <a href="https://ctan.org/pkg/fontspec"><code>fontspec</code></a>. <code>xelatex</code> uses <a href="https://ctan.org/pkg/polyglossia"><code>polyglossia</code></a> (with <code>lang</code>), <a href="https://ctan.org/pkg/xecjk"><code>xecjk</code></a>, and <a href="https://ctan.org/pkg/bidi"><code>bidi</code></a> (with the <code>dir</code> variable set). If the <code>mathspec</code> variable is set, <code>xelatex</code> will use <a href="https://ctan.org/pkg/mathspec"><code>mathspec</code></a> instead of <a href="https://ctan.org/pkg/unicode-math"><code>unicode-math</code></a>. The <a href="https://ctan.org/pkg/upquote"><code>upquote</code></a> and <a href="https://ctan.org/pkg/microtype"><code>microtype</code></a> packages are used if available, and <a href="https://ctan.org/pkg/csquotes"><code>csquotes</code></a> will be used for <a href="#typography">typography</a> if <code>\usepackage{csquotes}</code> is present in the template or included via <code>/H/--include-in-header</code>. The <a href="https://ctan.org/pkg/natbib"><code>natbib</code></a>, <a href="https://ctan.org/pkg/biblatex"><code>biblatex</code></a>, <a href="https://ctan.org/pkg/bibtex"><code>bibtex</code></a>, and <a href="https://ctan.org/pkg/biber"><code>biber</code></a> packages can optionally be used for <a href="#citation-rendering">citation rendering</a>.</p>
 <h2 id="reading-from-the-web">Reading from the Web</h2>
 <p>Instead of an input file, an absolute URI may be given. In this case pandoc will fetch the content using HTTP:</p>
 <pre><code>pandoc -f html -t markdown http://www.fsf.org</code></pre>
@@ -178,10 +182,95 @@
 <h2 id="general-options">General options</h2>
 <dl>
 <dt><code>-f</code> <em>FORMAT</em>, <code>-r</code> <em>FORMAT</em>, <code>--from=</code><em>FORMAT</em>, <code>--read=</code><em>FORMAT</em></dt>
-<dd><p>Specify input format. <em>FORMAT</em> can be <code>native</code> (native Haskell), <code>json</code> (JSON version of native AST), <code>markdown</code> (pandoc’s extended Markdown), <code>markdown_strict</code> (original unextended Markdown), <code>markdown_phpextra</code> (PHP Markdown Extra), <code>markdown_mmd</code> (MultiMarkdown), <code>gfm</code> (GitHub-Flavored Markdown), <code>commonmark</code> (CommonMark Markdown), <code>textile</code> (Textile), <code>rst</code> (reStructuredText), <code>html</code> (HTML), <code>docbook</code> (DocBook), <code>t2t</code> (txt2tags), <code>docx</code> (docx), <code>odt</code> (ODT), <code>epub</code> (EPUB), <code>opml</code> (OPML), <code>org</code> (Emacs Org mode), <code>mediawiki</code> (MediaWiki markup), <code>twiki</code> (TWiki markup), <code>tikiwiki</code> (TikiWiki markup), <code>creole</code> (Creole 1.0), <code>haddock</code> (Haddock markup), or <code>latex</code> (LaTeX). (<code>markdown_github</code> provides deprecated and less accurate support for Github-Flavored Markdown; please use <code>gfm</code> instead, unless you need to use extensions other than <code>smart</code>.) Extensions can be individually enabled or disabled by appending <code>+EXTENSION</code> or <code>-EXTENSION</code> to the format name. See <a href="#extensions">Extensions</a> below, for a list of extensions and their names. See <code>--list-input-formats</code> and <code>--list-extensions</code>, below.</p>
+<dd><p>Specify input format. <em>FORMAT</em> can be:</p>
+<div id="input-formats">
+<ul>
+<li><code>commonmark</code> (<a href="http://commonmark.org">CommonMark</a> Markdown)</li>
+<li><code>creole</code> (<a href="http://www.wikicreole.org/wiki/Creole1.0">Creole 1.0</a>)</li>
+<li><code>docbook</code> (<a href="http://docbook.org">DocBook</a>)</li>
+<li><code>docx</code> (<a href="https://en.wikipedia.org/wiki/Office_Open_XML">Word docx</a>)</li>
+<li><code>epub</code> (<a href="http://idpf.org/epub">EPUB</a>)</li>
+<li><code>fb2</code> (<a href="http://www.fictionbook.org/index.php/Eng:XML_Schema_Fictionbook_2.1">FictionBook2</a> e-book)</li>
+<li><code>gfm</code> (<a href="https://help.github.com/articles/github-flavored-markdown/">GitHub-Flavored Markdown</a>), or the deprecated and less accurate <code>markdown_github</code>; use <a href="#markdown-variants"><code>markdown_github</code></a> only if you need extensions not supported in <a href="#markdown-variants"><code>gfm</code></a>.</li>
+<li><code>haddock</code> (<a href="https://www.haskell.org/haddock/doc/html/ch03s08.html">Haddock markup</a>)</li>
+<li><code>html</code> (<a href="http://www.w3.org/html/">HTML</a>)</li>
+<li><code>jats</code> (<a href="https://jats.nlm.nih.gov">JATS</a> XML)</li>
+<li><code>json</code> (JSON version of native AST)</li>
+<li><code>latex</code> (<a href="http://latex-project.org">LaTeX</a>)</li>
+<li><code>markdown</code> (<a href="#pandocs-markdown">Pandoc’s Markdown</a>)</li>
+<li><code>markdown_mmd</code> (<a href="http://fletcherpenney.net/multimarkdown/">MultiMarkdown</a>)</li>
+<li><code>markdown_phpextra</code> (<a href="https://michelf.ca/projects/php-markdown/extra/">PHP Markdown Extra</a>)</li>
+<li><code>markdown_strict</code> (original unextended <a href="http://daringfireball.net/projects/markdown/">Markdown</a>)</li>
+<li><code>mediawiki</code> (<a href="https://www.mediawiki.org/wiki/Help:Formatting">MediaWiki markup</a>)</li>
+<li><code>muse</code> (<a href="https://amusewiki.org/library/manual">Muse</a>)</li>
+<li><code>native</code> (native Haskell)</li>
+<li><code>odt</code> (<a href="http://en.wikipedia.org/wiki/OpenDocument">ODT</a>)</li>
+<li><code>opml</code> (<a href="http://dev.opml.org/spec2.html">OPML</a>)</li>
+<li><code>org</code> (<a href="http://orgmode.org">Emacs Org mode</a>)</li>
+<li><code>rst</code> (<a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>)</li>
+<li><code>t2t</code> (<a href="http://txt2tags.org">txt2tags</a>)</li>
+<li><code>textile</code> (<a href="http://redcloth.org/textile">Textile</a>)</li>
+<li><code>tikiwiki</code> (<a href="https://doc.tiki.org/Wiki-Syntax-Text#The_Markup_Language_Wiki-Syntax">TikiWiki markup</a>)</li>
+<li><code>twiki</code> (<a href="http://twiki.org/cgi-bin/view/TWiki/TextFormattingRules">TWiki markup</a>)</li>
+<li><code>vimwiki</code> (<a href="https://vimwiki.github.io">Vimwiki</a>)</li>
+</ul>
+</div>
+<p>Extensions can be individually enabled or disabled by appending <code>+EXTENSION</code> or <code>-EXTENSION</code> to the format name. See <a href="#extensions">Extensions</a> below, for a list of extensions and their names. See <code>--list-input-formats</code> and <code>--list-extensions</code>, below.</p>
 </dd>
 <dt><code>-t</code> <em>FORMAT</em>, <code>-w</code> <em>FORMAT</em>, <code>--to=</code><em>FORMAT</em>, <code>--write=</code><em>FORMAT</em></dt>
-<dd><p>Specify output format. <em>FORMAT</em> can be <code>native</code> (native Haskell), <code>json</code> (JSON version of native AST), <code>plain</code> (plain text), <code>markdown</code> (pandoc’s extended Markdown), <code>markdown_strict</code> (original unextended Markdown), <code>markdown_phpextra</code> (PHP Markdown Extra), <code>markdown_mmd</code> (MultiMarkdown), <code>gfm</code> (GitHub-Flavored Markdown), <code>commonmark</code> (CommonMark Markdown), <code>rst</code> (reStructuredText), <code>html4</code> (XHTML 1.0 Transitional), <code>html</code> or <code>html5</code> (HTML5/XHTML <a href="https://www.w3.org/TR/html-polyglot/">polyglot markup</a>), <code>latex</code> (LaTeX), <code>beamer</code> (LaTeX beamer slide show), <code>context</code> (ConTeXt), <code>man</code> (groff man), <code>mediawiki</code> (MediaWiki markup), <code>dokuwiki</code> (DokuWiki markup), <code>zimwiki</code> (ZimWiki markup), <code>textile</code> (Textile), <code>org</code> (Emacs Org mode), <code>texinfo</code> (GNU Texinfo), <code>opml</code> (OPML), <code>docbook</code> or <code>docbook4</code> (DocBook 4), <code>docbook5</code> (DocBook 5), <code>jats</code> (JATS XML), <code>opendocument</code> (OpenDocument), <code>odt</code> (OpenOffice text document), <code>docx</code> (Word docx), <code>haddock</code> (Haddock markup), <code>rtf</code> (rich text format), <code>epub2</code> (EPUB v2 book), <code>epub</code> or <code>epub3</code> (EPUB v3), <code>fb2</code> (FictionBook2 e-book), <code>asciidoc</code> (AsciiDoc), <code>icml</code> (InDesign ICML), <code>tei</code> (TEI Simple), <code>slidy</code> (Slidy HTML and JavaScript slide show), <code>slideous</code> (Slideous HTML and JavaScript slide show), <code>dzslides</code> (DZSlides HTML5 + JavaScript slide show), <code>revealjs</code> (reveal.js HTML5 + JavaScript slide show), <code>s5</code> (S5 HTML and JavaScript slide show), <code>pptx</code> (PowerPoint slide show) or the path of a custom lua writer (see <a href="#custom-writers">Custom writers</a>, below). (<code>markdown_github</code> provides deprecated and less accurate support for Github-Flavored Markdown; please use <code>gfm</code> instead, unless you use extensions that do not work with <code>gfm</code>.) Note that <code>odt</code>, <code>docx</code>, and <code>epub</code> output will not be directed to <em>stdout</em> unless forced with <code>-o -</code>. Extensions can be individually enabled or disabled by appending <code>+EXTENSION</code> or <code>-EXTENSION</code> to the format name. See <a href="#extensions">Extensions</a> below, for a list of extensions and their names. See <code>--list-output-formats</code> and <code>--list-extensions</code>, below.</p>
+<dd><p>Specify output format. <em>FORMAT</em> can be:</p>
+<div id="output-formats">
+<ul>
+<li><code>asciidoc</code> (<a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>)</li>
+<li><code>beamer</code> (<a href="https://ctan.org/pkg/beamer">LaTeX beamer</a> slide show)</li>
+<li><code>commonmark</code> (<a href="http://commonmark.org">CommonMark</a> Markdown)</li>
+<li><code>context</code> (<a href="http://www.contextgarden.net/">ConTeXt</a>)</li>
+<li><code>docbook</code> or <code>docbook4</code> (<a href="http://docbook.org">DocBook</a> 4)</li>
+<li><code>docbook5</code> (DocBook 5)</li>
+<li><code>docx</code> (<a href="https://en.wikipedia.org/wiki/Office_Open_XML">Word docx</a>)</li>
+<li><code>dokuwiki</code> (<a href="https://www.dokuwiki.org/dokuwiki">DokuWiki markup</a>)</li>
+<li><code>epub</code> or <code>epub3</code> (<a href="http://idpf.org/epub">EPUB</a> v3 book)</li>
+<li><code>epub2</code> (EPUB v2)</li>
+<li><code>fb2</code> (<a href="http://www.fictionbook.org/index.php/Eng:XML_Schema_Fictionbook_2.1">FictionBook2</a> e-book)</li>
+<li><code>gfm</code> (<a href="https://help.github.com/articles/github-flavored-markdown/">GitHub-Flavored Markdown</a>), or the deprecated and less accurate <code>markdown_github</code>; use <a href="#markdown-variants"><code>markdown_github</code></a> only if you need extensions not supported in <a href="#markdown-variants"><code>gfm</code></a>.</li>
+<li><code>haddock</code> (<a href="https://www.haskell.org/haddock/doc/html/ch03s08.html">Haddock markup</a>)</li>
+<li><code>html</code> or <code>html5</code> (<a href="http://www.w3.org/html/">HTML</a>, i.e. <a href="http://www.w3.org/TR/html5/">HTML5</a>/XHTML <a href="https://www.w3.org/TR/html-polyglot/">polyglot markup</a>)</li>
+<li><code>html4</code> (<a href="http://www.w3.org/TR/xhtml1/">XHTML</a> 1.0 Transitional)</li>
+<li><code>icml</code> (<a href="http://wwwimages.adobe.com/www.adobe.com/content/dam/acom/en/devnet/indesign/sdk/cs6/idml/idml-cookbook.pdf">InDesign ICML</a>)</li>
+<li><code>jats</code> (<a href="https://jats.nlm.nih.gov">JATS</a> XML)</li>
+<li><code>json</code> (JSON version of native AST)</li>
+<li><code>latex</code> (<a href="http://latex-project.org">LaTeX</a>)</li>
+<li><code>man</code> (<a href="http://man7.org/linux/man-pages/man7/groff_man.7.html">groff man</a>)</li>
+<li><code>markdown</code> (<a href="#pandocs-markdown">Pandoc’s Markdown</a>)</li>
+<li><code>markdown_mmd</code> (<a href="http://fletcherpenney.net/multimarkdown/">MultiMarkdown</a>)</li>
+<li><code>markdown_phpextra</code> (<a href="https://michelf.ca/projects/php-markdown/extra/">PHP Markdown Extra</a>)</li>
+<li><code>markdown_strict</code> (original unextended <a href="http://daringfireball.net/projects/markdown/">Markdown</a>)</li>
+<li><code>mediawiki</code> (<a href="https://www.mediawiki.org/wiki/Help:Formatting">MediaWiki markup</a>)</li>
+<li><code>ms</code> (<a href="http://man7.org/linux/man-pages/man7/groff_ms.7.html">groff ms</a>)</li>
+<li><code>muse</code> (<a href="https://amusewiki.org/library/manual">Muse</a>),</li>
+<li><code>native</code> (native Haskell),</li>
+<li><code>odt</code> (<a href="http://en.wikipedia.org/wiki/OpenDocument">OpenOffice text document</a>)</li>
+<li><code>opml</code> (<a href="http://dev.opml.org/spec2.html">OPML</a>)</li>
+<li><code>opendocument</code> (<a href="http://opendocument.xml.org">OpenDocument</a>)</li>
+<li><code>org</code> (<a href="http://orgmode.org">Emacs Org mode</a>)</li>
+<li><code>plain</code> (plain text),</li>
+<li><code>pptx</code> (<a href="https://en.wikipedia.org/wiki/Microsoft_PowerPoint">PowerPoint</a> slide show)</li>
+<li><code>rst</code> (<a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>)</li>
+<li><code>rtf</code> (<a href="http://en.wikipedia.org/wiki/Rich_Text_Format">Rich Text Format</a>)</li>
+<li><code>texinfo</code> (<a href="http://www.gnu.org/software/texinfo/">GNU Texinfo</a>)</li>
+<li><code>textile</code> (<a href="http://redcloth.org/textile">Textile</a>)</li>
+<li><code>slideous</code> (<a href="http://goessner.net/articles/slideous/">Slideous</a> HTML and JavaScript slide show)</li>
+<li><code>slidy</code> (<a href="http://www.w3.org/Talks/Tools/Slidy/">Slidy</a> HTML and JavaScript slide show)</li>
+<li><code>dzslides</code> (<a href="http://paulrouget.com/dzslides/">DZSlides</a> HTML5 + JavaScript slide show),</li>
+<li><code>revealjs</code> (<a href="http://lab.hakim.se/reveal-js/">reveal.js</a> HTML5 + JavaScript slide show)</li>
+<li><code>s5</code> (<a href="http://meyerweb.com/eric/tools/s5/">S5</a> HTML and JavaScript slide show)</li>
+<li><code>tei</code> (<a href="https://github.com/TEIC/TEI-Simple">TEI Simple</a>)</li>
+<li><code>zimwiki</code> (<a href="http://zim-wiki.org/manual/Help/Wiki_Syntax.html">ZimWiki markup</a>)</li>
+<li>the path of a custom lua writer, see <a href="#custom-writers">Custom writers</a> below</li>
+</ul>
+</div>
+<p>Note that <code>odt</code>, <code>docx</code>, and <code>epub</code> output will not be directed to <em>stdout</em> unless forced with <code>-o -</code>.</p>
+<p>Extensions can be individually enabled or disabled by appending <code>+EXTENSION</code> or <code>-EXTENSION</code> to the format name. See <a href="#extensions">Extensions</a> below, for a list of extensions and their names. See <code>--list-output-formats</code> and <code>--list-extensions</code>, below.</p>
 </dd>
 <dt><code>-o</code> <em>FILE</em>, <code>--output=</code><em>FILE</em></dt>
 <dd><p>Write output to <em>FILE</em> instead of <em>stdout</em>. If <em>FILE</em> is <code>-</code>, output will go to <em>stdout</em>, even if a non-textual format (<code>docx</code>, <code>odt</code>, <code>epub2</code>, <code>epub3</code>) is specified.</p>
@@ -250,7 +339,7 @@
 <dt><code>--file-scope</code></dt>
 <dd><p>Parse each file individually before combining for multifile documents. This will allow footnotes in different files with the same identifiers to work as expected. If this option is set, footnotes and links will not work across files. Reading binary files (docx, odt, epub) implies <code>--file-scope</code>.</p>
 </dd>
-<dt><code>--filter=</code><em>PROGRAM</em></dt>
+<dt><code>-F</code> <em>PROGRAM</em>, <code>--filter=</code><em>PROGRAM</em></dt>
 <dd><p>Specify an executable to be used as a filter transforming the pandoc AST after the input is parsed and before the output is written. The executable should read JSON from stdin and write JSON to stdout. The JSON must be formatted like pandoc’s own JSON input and output. The name of the output format will be passed to the filter as the first argument. Hence,</p>
 <pre><code>pandoc --filter ./caps.py -t latex</code></pre>
 <p>is equivalent to</p>
@@ -278,9 +367,17 @@
 end
 
 return {{Str = expand_hello_world}}</code></pre>
+<p>In order of preference, pandoc will look for lua filters in</p>
+<ol type="1">
+<li><p>a specified full or relative path (executable or non-executable)</p></li>
+<li><p><code>$DATADIR/filters</code> (executable or non-executable) where <code>$DATADIR</code> is the user data directory (see <code>--data-dir</code>, above).</p></li>
+</ol>
 </dd>
 <dt><code>-M</code> <em>KEY</em>[<code>=</code><em>VAL</em>], <code>--metadata=</code><em>KEY</em>[<code>:</code><em>VAL</em>]</dt>
-<dd><p>Set the metadata field <em>KEY</em> to the value <em>VAL</em>. A value specified on the command line overrides a value specified in the document. Values will be parsed as YAML boolean or string values. If no value is specified, the value will be treated as Boolean true. Like <code>--variable</code>, <code>--metadata</code> causes template variables to be set. But unlike <code>--variable</code>, <code>--metadata</code> affects the metadata of the underlying document (which is accessible from filters and may be printed in some output formats).</p>
+<dd><p>Set the metadata field <em>KEY</em> to the value <em>VAL</em>. A value specified on the command line overrides a value specified in the document using <a href="#extension-yaml_metadata_block">YAML metadata blocks</a>. Values will be parsed as YAML boolean or string values. If no value is specified, the value will be treated as Boolean true. Like <code>--variable</code>, <code>--metadata</code> causes template variables to be set. But unlike <code>--variable</code>, <code>--metadata</code> affects the metadata of the underlying document (which is accessible from filters and may be printed in some output formats) and metadata values will be escaped when inserted into the template.</p>
+</dd>
+<dt><code>--metadata-file=</code><em>FILE</em></dt>
+<dd><p>Read metadata from the supplied YAML (or JSON) file. This option can be used with every input format, but string scalars in the YAML file will always be parsed as Markdown. Generally, the input will be handled the same as in <a href="#extension-yaml_metadata_block">YAML metadata blocks</a>. Metadata values specified inside the document, or by using <code>-M</code>, overwrite values specified with this option.</p>
 </dd>
 <dt><code>-p</code>, <code>--preserve-tabs</code></dt>
 <dd><p>Preserve tabs instead of converting them to spaces (the default). Note that this will only affect tabs in literal code spans and code blocks; tabs in regular text will be treated as spaces.</p>
@@ -301,10 +398,10 @@ return {{Str = expand_hello_world}}</code></pre>
 <h2 id="general-writer-options">General writer options</h2>
 <dl>
 <dt><code>-s</code>, <code>--standalone</code></dt>
-<dd><p>Produce output with an appropriate header and footer (e.g. a standalone HTML, LaTeX, TEI, or RTF file, not a fragment). This option is set automatically for <code>pdf</code>, <code>epub</code>, <code>epub3</code>, <code>fb2</code>, <code>docx</code>, and <code>odt</code> output.</p>
+<dd><p>Produce output with an appropriate header and footer (e.g. a standalone HTML, LaTeX, TEI, or RTF file, not a fragment). This option is set automatically for <code>pdf</code>, <code>epub</code>, <code>epub3</code>, <code>fb2</code>, <code>docx</code>, and <code>odt</code> output. For <code>native</code> output, this option causes metadata to be included; otherwise, metadata is suppressed.</p>
 </dd>
-<dt><code>--template=</code><em>FILE</em></dt>
-<dd><p>Use <em>FILE</em> as a custom template for the generated document. Implies <code>--standalone</code>. See <a href="#templates">Templates</a>, below, for a description of template syntax. If no extension is specified, an extension corresponding to the writer will be added, so that <code>--template=special</code> looks for <code>special.html</code> for HTML output. If the template is not found, pandoc will search for it in the <code>templates</code> subdirectory of the user data directory (see <code>--data-dir</code>). If this option is not used, a default template appropriate for the output format will be used (see <code>-D/--print-default-template</code>).</p>
+<dt><code>--template=</code><em>FILE</em>|<em>URL</em></dt>
+<dd><p>Use the specified file as a custom template for the generated document. Implies <code>--standalone</code>. See <a href="#templates">Templates</a>, below, for a description of template syntax. If no extension is specified, an extension corresponding to the writer will be added, so that <code>--template=special</code> looks for <code>special.html</code> for HTML output. If the template is not found, pandoc will search for it in the <code>templates</code> subdirectory of the user data directory (see <code>--data-dir</code>). If this option is not used, a default template appropriate for the output format will be used (see <code>-D/--print-default-template</code>).</p>
 </dd>
 <dt><code>-V</code> <em>KEY</em>[<code>=</code><em>VAL</em>], <code>--variable=</code><em>KEY</em>[<code>:</code><em>VAL</em>]</dt>
 <dd><p>Set the template variable <em>KEY</em> to the value <em>VAL</em> when rendering the document in standalone mode. This is generally only useful when the <code>--template</code> option is used to specify a custom template, since pandoc automatically sets the variables used in the default templates. If no <em>VAL</em> is specified, the key will be given the value <code>true</code>.</p>
@@ -328,7 +425,7 @@ return {{Str = expand_hello_world}}</code></pre>
 <dd><p>Specify length of lines in characters. This affects text wrapping in the generated source code (see <code>--wrap</code>). It also affects calculation of column widths for plain text tables (see <a href="#tables">Tables</a> below).</p>
 </dd>
 <dt><code>--toc</code>, <code>--table-of-contents</code></dt>
-<dd><p>Include an automatically generated table of contents (or, in the case of <code>latex</code>, <code>context</code>, <code>docx</code>, <code>odt</code>, <code>opendocument</code>, <code>rst</code>, or <code>ms</code>, an instruction to create one) in the output document. This option has no effect on <code>man</code>, <code>docbook4</code>, <code>docbook5</code>, or <code>jats</code> output.</p>
+<dd><p>Include an automatically generated table of contents (or, in the case of <code>latex</code>, <code>context</code>, <code>docx</code>, <code>odt</code>, <code>opendocument</code>, <code>rst</code>, or <code>ms</code>, an instruction to create one) in the output document. This option has no effect unless <code>-s/--standalone</code> is used, and it has no effect on <code>man</code>, <code>docbook4</code>, <code>docbook5</code>, or <code>jats</code> output.</p>
 </dd>
 <dt><code>--toc-depth=</code><em>NUMBER</em></dt>
 <dd><p>Specify the number of section levels to include in the table of contents. The default is 3 (which means that level 1, 2, and 3 headers will be listed in the contents).</p>
@@ -361,21 +458,22 @@ return {{Str = expand_hello_world}}</code></pre>
 </dd>
 <dt><code>--resource-path=</code><em>SEARCHPATH</em></dt>
 <dd><p>List of paths to search for images and other resources. The paths should be separated by <code>:</code> on Linux, UNIX, and macOS systems, and by <code>;</code> on Windows. If <code>--resource-path</code> is not specified, the default resource path is the working directory. Note that, if <code>--resource-path</code> is specified, the working directory must be explicitly listed or it will not be searched. For example: <code>--resource-path=.:test</code> will search the working directory and the <code>test</code> subdirectory, in that order.</p>
+<p><code>--resource-path</code> only has an effect if (a) the output format embeds images (for example, <code>docx</code>, <code>pdf</code>, or <code>html</code> with <code>--self-contained</code>) or (b) it is used together with <code>--extract-media</code>.</p>
 </dd>
 <dt><code>--request-header=</code><em>NAME</em><code>:</code><em>VAL</em></dt>
-<dd><p>Set the request header <em>NAME</em> to the value <em>VAL</em> when making HTTP requests (for example, when a URL is given on the command line, or when resources used in a document must be downloaded).</p>
+<dd><p>Set the request header <em>NAME</em> to the value <em>VAL</em> when making HTTP requests (for example, when a URL is given on the command line, or when resources used in a document must be downloaded). If you’re behind a proxy, you also need to set the environment variable <code>http_proxy</code> to <code>http://...</code>.</p>
 </dd>
 </dl>
 <h2 id="options-affecting-specific-writers">Options affecting specific writers</h2>
 <dl>
 <dt><code>--self-contained</code></dt>
-<dd><p>Produce a standalone HTML file with no external dependencies, using <code>data:</code> URIs to incorporate the contents of linked scripts, stylesheets, images, and videos. The resulting file should be “self-contained,” in the sense that it needs no external files and no net access to be displayed properly by a browser. This option works only with HTML output formats, including <code>html4</code>, <code>html5</code>, <code>html+lhs</code>, <code>html5+lhs</code>, <code>s5</code>, <code>slidy</code>, <code>slideous</code>, <code>dzslides</code>, and <code>revealjs</code>. Scripts, images, and stylesheets at absolute URLs will be downloaded; those at relative URLs will be sought relative to the working directory (if the first source file is local) or relative to the base URL (if the first source file is remote). Elements with the attribute <code>data-external=&quot;1&quot;</code> will be left alone; the documents they link to will not be incorporated in the document. Limitation: resources that are loaded dynamically through JavaScript cannot be incorporated; as a result, <code>--self-contained</code> does not work with <code>--mathjax</code>, and some advanced features (e.g. zoom or speaker notes) may not work in an offline “self-contained” <code>reveal.js</code> slide show.</p>
+<dd><p>Produce a standalone HTML file with no external dependencies, using <code>data:</code> URIs to incorporate the contents of linked scripts, stylesheets, images, and videos. Implies <code>--standalone</code>. The resulting file should be “self-contained,” in the sense that it needs no external files and no net access to be displayed properly by a browser. This option works only with HTML output formats, including <code>html4</code>, <code>html5</code>, <code>html+lhs</code>, <code>html5+lhs</code>, <code>s5</code>, <code>slidy</code>, <code>slideous</code>, <code>dzslides</code>, and <code>revealjs</code>. Scripts, images, and stylesheets at absolute URLs will be downloaded; those at relative URLs will be sought relative to the working directory (if the first source file is local) or relative to the base URL (if the first source file is remote). Elements with the attribute <code>data-external=&quot;1&quot;</code> will be left alone; the documents they link to will not be incorporated in the document. Limitation: resources that are loaded dynamically through JavaScript cannot be incorporated; as a result, <code>--self-contained</code> does not work with <code>--mathjax</code>, and some advanced features (e.g. zoom or speaker notes) may not work in an offline “self-contained” <code>reveal.js</code> slide show.</p>
 </dd>
 <dt><code>--html-q-tags</code></dt>
 <dd><p>Use <code>&lt;q&gt;</code> tags for quotes in HTML.</p>
 </dd>
 <dt><code>--ascii</code></dt>
-<dd><p>Use only ASCII characters in output. Currently supported only for HTML and DocBook output (which uses numerical entities instead of UTF-8 when this option is selected).</p>
+<dd><p>Use only ASCII characters in output. Currently supported for XML and HTML formats (which use numerical entities instead of UTF-8 when this option is selected) and for groff ms and man (which use hexadecimal escapes).</p>
 </dd>
 <dt><code>--reference-links</code></dt>
 <dd><p>Use reference-style links, rather than inline links, in writing Markdown or reStructuredText. By default inline links are used. The placement of link references is affected by the <code>--reference-location</code> option.</p>
@@ -396,7 +494,7 @@ return {{Str = expand_hello_world}}</code></pre>
 <dd><p>Offset for section headings in HTML output (ignored in other output formats). The first number is added to the section number for top-level headers, the second for second-level headers, and so on. So, for example, if you want the first top-level header in your document to be numbered “6”, specify <code>--number-offset=5</code>. If your document starts with a level-2 header which you want to be numbered “1.5”, specify <code>--number-offset=1,4</code>. Offsets are 0 by default. Implies <code>--number-sections</code>.</p>
 </dd>
 <dt><code>--listings</code></dt>
-<dd><p>Use the <a href="https://ctan.org/pkg/listings"><code>listings</code></a> package for LaTeX code blocks</p>
+<dd><p>Use the <a href="https://ctan.org/pkg/listings"><code>listings</code></a> package for LaTeX code blocks. The package does not support multi-byte encoding for source code. To handle UTF-8 you would need to use a custom template. This issue is fully documented here: <a href="https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings#Encoding_issue">Encoding issue with the listings package</a>.</p>
 </dd>
 <dt><code>-i</code>, <code>--incremental</code></dt>
 <dd><p>Make list items in slide shows display incrementally (one by one). The default is for lists to be displayed all at once.</p>
@@ -430,6 +528,18 @@ return {{Str = expand_hello_world}}</code></pre>
 <dt>ODT</dt>
 <dd><p>For best results, the reference ODT should be a modified version of an ODT produced using pandoc. The contents of the reference ODT are ignored, but its stylesheets are used in the new ODT. If no reference ODT is specified on the command line, pandoc will look for a file <code>reference.odt</code> in the user data directory (see <code>--data-dir</code>). If this is not found either, sensible defaults will be used.</p>
 <p>To produce a custom <code>reference.odt</code>, first get a copy of the default <code>reference.odt</code>: <code>pandoc --print-default-data-file reference.odt &gt; custom-reference.odt</code>. Then open <code>custom-reference.odt</code> in LibreOffice, modify the styles as you wish, and save the file.</p>
+</dd>
+<dt>PowerPoint</dt>
+<dd><p>Any template included with a recent install of Microsoft PowerPoint (either with <code>.pptx</code> or <code>.potx</code> extension) should work, as will most templates derived from these.</p>
+<p>The specific requirement is that the template should contain the following four layouts as its first four layouts:</p>
+<ol type="1">
+<li>Title Slide</li>
+<li>Title and Content</li>
+<li>Section Header</li>
+<li>Two Content</li>
+</ol>
+<p>All templates included with a recent version of MS PowerPoint will fit these criteria. (You can click on <code>Layout</code> under the <code>Home</code> menu to check.)</p>
+<p>You can also modify the default <code>reference.pptx</code>: first run <code>pandoc --print-default-data-file reference.pptx &gt; custom-reference.pptx</code>, and then modify <code>custom-reference.pptx</code> in MS PowerPoint (pandoc will use the first four layout slides, as mentioned above).</p>
 </dd>
 </dl>
 </dd>
@@ -515,25 +625,13 @@ body { font-family: &quot;DejaVuSans&quot;; }</code></pre>
 <dd><p>Convert TeX formulas to <code>&lt;img&gt;</code> tags that link to an external script that converts formulas to images. The formula will be URL-encoded and concatenated with the URL provided. For SVG images you can for example use <code>--webtex https://latex.codecogs.com/svg.latex?</code>. If no URL is specified, the CodeCogs URL generating PNGs will be used (<code>https://latex.codecogs.com/png.latex?</code>). Note: the <code>--webtex</code> option will affect Markdown output as well as HTML, which is useful if you’re targeting a version of Markdown without native math support.</p>
 </dd>
 <dt><code>--katex</code>[<code>=</code><em>URL</em>]</dt>
-<dd><p>Use <a href="https://github.com/Khan/KaTeX">KaTeX</a> to display embedded TeX math in HTML output. The <em>URL</em> is the base URL for the KaTeX library. If a <em>URL</em> is not provided, a link to the KaTeX CDN will be inserted.</p>
-</dd>
-<dt><code>--katex-stylesheet=</code><em>URL</em></dt>
-<dd><p>The <em>URL</em> should point to the <code>katex.css</code> stylesheet. If this option is not specified, a link to the KaTeX CDN will be inserted. Note that this option does not imply <code>--katex</code>.</p>
-</dd>
-<dt><code>-m</code> [<em>URL</em>], <code>--latexmathml</code>[<code>=</code><em>URL</em>]</dt>
-<dd><p><em>Deprecated.</em> Use the <a href="http://math.etsu.edu/LaTeXMathML/">LaTeXMathML</a> script to display embedded TeX math in HTML output. TeX math will be displayed between <code>$</code> or <code>$$</code> characters and put in <code>&lt;span&gt;</code> tags with class <code>LaTeX</code>. The LaTeXMathML JavaScript will then change it to MathML. Note that currently only Firefox and Safari (and select e-book readers) natively support MathML. To insert a link the <code>LaTeXMathML.js</code> script, provide a <em>URL</em>.</p>
-</dd>
-<dt><code>--jsmath</code>[<code>=</code><em>URL</em>]</dt>
-<dd><p><em>Deprecated.</em> Use <a href="http://www.math.union.edu/~dpvc/jsmath/">jsMath</a> (the predecessor of MathJax) to display embedded TeX math in HTML output. TeX math will be put inside <code>&lt;span&gt;</code> tags (for inline math) or <code>&lt;div&gt;</code> tags (for display math) with class <code>math</code> and rendered by the jsMath script. The <em>URL</em> should point to the script (e.g. <code>jsMath/easy/load.js</code>); if provided, it will be linked to in the header of standalone HTML documents. If a <em>URL</em> is not provided, no link to the jsMath load script will be inserted; it is then up to the author to provide such a link in the HTML template.</p>
+<dd><p>Use <a href="https://github.com/Khan/KaTeX">KaTeX</a> to display embedded TeX math in HTML output. The <em>URL</em> is the base URL for the KaTeX library. That directory should contain a <code>katex.min.js</code> and a <code>katex.min.css</code> file. If a <em>URL</em> is not provided, a link to the KaTeX CDN will be inserted.</p>
 </dd>
 <dt><code>--gladtex</code></dt>
-<dd><p><em>Deprecated.</em> Enclose TeX math in <code>&lt;eq&gt;</code> tags in HTML output. The resulting HTML can then be processed by <a href="http://ans.hsh.no/home/mgg/gladtex/">gladTeX</a> to produce images of the typeset formulas and an HTML file with links to these images. So, the procedure is:</p>
+<dd><p>Enclose TeX math in <code>&lt;eq&gt;</code> tags in HTML output. The resulting HTML can then be processed by <a href="http://humenda.github.io/GladTeX/">GladTeX</a> to produce images of the typeset formulas and an HTML file with links to these images. So, the procedure is:</p>
 <pre><code>pandoc -s --gladtex input.md -o myfile.htex
 gladtex -d myfile-images myfile.htex
 # produces myfile.html and images in myfile-images</code></pre>
-</dd>
-<dt><code>--mimetex</code>[<code>=</code><em>URL</em>]</dt>
-<dd><p><em>Deprecated.</em> Render TeX math using the <a href="http://www.forkosh.com/mimetex.html">mimeTeX</a> CGI script, which generates an image for each TeX formula. This should work in all browsers. If <em>URL</em> is not specified, it is assumed that the script is at <code>/cgi-bin/mimetex.cgi</code>.</p>
 </dd>
 </dl>
 <h2 id="options-for-wrapper-scripts">Options for wrapper scripts</h2>
@@ -554,12 +652,12 @@ gladtex -d myfile-images myfile.htex
 <p>where <em>FORMAT</em> is the name of the output format. A custom template can be specified using the <code>--template</code> option. You can also override the system default templates for a given output format <em>FORMAT</em> by putting a file <code>templates/default.*FORMAT*</code> in the user data directory (see <code>--data-dir</code>, above). <em>Exceptions:</em></p>
 <ul>
 <li>For <code>odt</code> output, customize the <code>default.opendocument</code> template.</li>
-<li>For <code>pdf</code> output, customize the <code>default.latex</code> template (or the <code>default.context</code> template, if you use <code>-t context</code>, or the <code>default.ms</code> template, if you use <code>-t ms</code>, or the <code>default.html5</code> template, if you use <code>-t html5</code>).</li>
+<li>For <code>pdf</code> output, customize the <code>default.latex</code> template (or the <code>default.context</code> template, if you use <code>-t context</code>, or the <code>default.ms</code> template, if you use <code>-t ms</code>, or the <code>default.html</code> template, if you use <code>-t html</code>).</li>
 <li><code>docx</code> has no template (however, you can use <code>--reference-doc</code> to customize the output).</li>
 </ul>
-<p>Templates contain <em>variables</em>, which allow for the inclusion of arbitrary information at any point in the file. Variables may be set within the document using <a href="#extension-yaml_metadata_block">YAML metadata blocks</a>. They may also be set at the command line using the <code>-V/--variable</code> option: variables set in this way override metadata fields with the same name.</p>
+<p>Templates contain <em>variables</em>, which allow for the inclusion of arbitrary information at any point in the file. They may be set at the command line using the <code>-V/--variable</code> option. If a variable is not set, pandoc will look for the key in the document’s metadata – which can be set using either <a href="#extension-yaml_metadata_block">YAML metadata blocks</a> or with the <code>--metadata</code> option.</p>
 <h2 id="variables-set-by-pandoc">Variables set by pandoc</h2>
-<p>Some variables are set automatically by pandoc. These vary somewhat depending on the output format, but include metadata fields as well as the following:</p>
+<p>Some variables are set automatically by pandoc. These vary somewhat depending on the output format, but include the following:</p>
 <dl>
 <dt><code>sourcefile</code>, <code>outputfile</code></dt>
 <dd><p>source and destination filenames, as given on the command line. <code>sourcefile</code> can also be a list if input comes from multiple files, or empty if input is from stdin. You can use the following snippet in your template to distinguish them:</p>
@@ -599,7 +697,7 @@ author:
 <dd>non-null value if <code>--toc/--table-of-contents</code> was specified
 </dd>
 <dt><code>toc-title</code></dt>
-<dd>title of table of contents (works only with EPUB, opendocument, odt, docx, pptx)
+<dd>title of table of contents (works only with EPUB, opendocument, odt, docx, pptx, beamer, LaTeX)
 </dd>
 <dt><code>include-before</code></dt>
 <dd>contents specified by <code>-B/--include-before-body</code> (may have multiple values)
@@ -681,6 +779,9 @@ author:
 <dt><code>classoption</code></dt>
 <dd>option for document class, e.g. <code>oneside</code>; may be repeated for multiple options
 </dd>
+<dt><code>beameroption</code></dt>
+<dd>In beamer, add extra beamer option with <code>\setbeameroption{}</code>
+</dd>
 <dt><code>geometry</code></dt>
 <dd>option for <a href="https://ctan.org/pkg/geometry"><code>geometry</code></a> package, e.g. <code>margin=1in</code>; may be repeated for multiple options
 </dd>
@@ -709,10 +810,10 @@ author:
 <dd>options to pass to the microtype package
 </dd>
 <dt><code>colorlinks</code></dt>
-<dd>add color to link text; automatically enabled if any of <code>linkcolor</code>, <code>citecolor</code>, <code>urlcolor</code>, or <code>toccolor</code> are set
+<dd>add color to link text; automatically enabled if any of <code>linkcolor</code>, <code>filecolor</code>, <code>citecolor</code>, <code>urlcolor</code>, or <code>toccolor</code> are set
 </dd>
-<dt><code>linkcolor</code>, <code>citecolor</code>, <code>urlcolor</code>, <code>toccolor</code></dt>
-<dd>color for internal links, citation links, external links, and links in table of contents: uses options allowed by <a href="https://ctan.org/pkg/xcolor"><code>xcolor</code></a>, including the <code>dvipsnames</code>, <code>svgnames</code>, and <code>x11names</code> lists
+<dt><code>linkcolor</code>, <code>filecolor</code>, <code>citecolor</code>, <code>urlcolor</code>, <code>toccolor</code></dt>
+<dd>color for internal links, external links, citation links, linked URLs, and links in table of contents, respectively: uses options allowed by <a href="https://ctan.org/pkg/xcolor"><code>xcolor</code></a>, including the <code>dvipsnames</code>, <code>svgnames</code>, and <code>x11names</code> lists
 </dd>
 <dt><code>links-as-notes</code></dt>
 <dd>causes links to be printed as footnotes
@@ -760,10 +861,10 @@ author:
 <h2 id="variables-for-context">Variables for ConTeXt</h2>
 <dl>
 <dt><code>papersize</code></dt>
-<dd>paper size, e.g. <code>letter</code>, <code>A4</code>, <code>landscape</code> (see <a href="http://wiki.contextgarden.net/PaperSetup">ConTeXt Paper Setup</a>); may be repeated for multiple options
+<dd>paper size, e.g. <code>letter</code>, <code>A4</code>, <code>landscape</code> (see <a href="https://wiki.contextgarden.net/PaperSetup">ConTeXt Paper Setup</a>); may be repeated for multiple options
 </dd>
 <dt><code>layout</code></dt>
-<dd>options for page margins and text arrangement (see <a href="http://wiki.contextgarden.net/Layout">ConTeXt Layout</a>); may be repeated for multiple options
+<dd>options for page margins and text arrangement (see <a href="https://wiki.contextgarden.net/Layout">ConTeXt Layout</a>); may be repeated for multiple options
 </dd>
 <dt><code>margin-left</code>, <code>margin-right</code>, <code>margin-top</code>, <code>margin-bottom</code></dt>
 <dd>sets margins, if <code>layout</code> is not used (otherwise <code>layout</code> overrides these)
@@ -772,34 +873,37 @@ author:
 <dd>font size for body text (e.g. <code>10pt</code>, <code>12pt</code>)
 </dd>
 <dt><code>mainfont</code>, <code>sansfont</code>, <code>monofont</code>, <code>mathfont</code></dt>
-<dd>font families: take the name of any system font (see <a href="http://wiki.contextgarden.net/Font_Switching">ConTeXt Font Switching</a>)
+<dd>font families: take the name of any system font (see <a href="https://wiki.contextgarden.net/Font_Switching">ConTeXt Font Switching</a>)
 </dd>
 <dt><code>linkcolor</code>, <code>contrastcolor</code></dt>
-<dd>color for links outside and inside a page, e.g. <code>red</code>, <code>blue</code> (see <a href="http://wiki.contextgarden.net/Color">ConTeXt Color</a>)
+<dd>color for links outside and inside a page, e.g. <code>red</code>, <code>blue</code> (see <a href="https://wiki.contextgarden.net/Color">ConTeXt Color</a>)
 </dd>
 <dt><code>linkstyle</code></dt>
 <dd>typeface style for links, e.g. <code>normal</code>, <code>bold</code>, <code>slanted</code>, <code>boldslanted</code>, <code>type</code>, <code>cap</code>, <code>small</code>
 </dd>
 <dt><code>indenting</code></dt>
-<dd>controls indentation of paragraphs, e.g. <code>yes,small,next</code> (see <a href="http://wiki.contextgarden.net/Indentation">ConTeXt Indentation</a>); may be repeated for multiple options
+<dd>controls indentation of paragraphs, e.g. <code>yes,small,next</code> (see <a href="https://wiki.contextgarden.net/Indentation">ConTeXt Indentation</a>); may be repeated for multiple options
 </dd>
 <dt><code>whitespace</code></dt>
-<dd>spacing between paragraphs, e.g. <code>none</code>, <code>small</code> (using <a href="http://wiki.contextgarden.net/Command/setupwhitespace"><code>setupwhitespace</code></a>)
+<dd>spacing between paragraphs, e.g. <code>none</code>, <code>small</code> (using <a href="https://wiki.contextgarden.net/Command/setupwhitespace"><code>setupwhitespace</code></a>)
 </dd>
 <dt><code>interlinespace</code></dt>
-<dd>adjusts line spacing, e.g. <code>4ex</code> (using <a href="http://wiki.contextgarden.net/Command/setupinterlinespace"><code>setupinterlinespace</code></a>); may be repeated for multiple options
+<dd>adjusts line spacing, e.g. <code>4ex</code> (using <a href="https://wiki.contextgarden.net/Command/setupinterlinespace"><code>setupinterlinespace</code></a>); may be repeated for multiple options
 </dd>
 <dt><code>headertext</code>, <code>footertext</code></dt>
-<dd>text to be placed in running header or footer (see <a href="http://wiki.contextgarden.net/Headers_and_Footers">ConTeXt Headers and Footers</a>); may be repeated up to four times for different placement
+<dd>text to be placed in running header or footer (see <a href="https://wiki.contextgarden.net/Headers_and_Footers">ConTeXt Headers and Footers</a>); may be repeated up to four times for different placement
 </dd>
 <dt><code>pagenumbering</code></dt>
-<dd>page number style and location (using <a href="http://wiki.contextgarden.net/Command/setuppagenumbering"><code>setuppagenumbering</code></a>); may be repeated for multiple options
+<dd>page number style and location (using <a href="https://wiki.contextgarden.net/Command/setuppagenumbering"><code>setuppagenumbering</code></a>); may be repeated for multiple options
 </dd>
 <dt><code>toc</code></dt>
 <dd>include table of contents (can also be set using <code>--toc/--table-of-contents</code>)
 </dd>
 <dt><code>lof</code>, <code>lot</code></dt>
 <dd>include list of figures, list of tables
+</dd>
+<dt><code>pdfa</code></dt>
+<dd>adds to the preamble the setup necessary to generate PDF/A-1b:2005. To successfully generate PDF/A the required ICC color profiles have to be available and the content and all included files (such as images) have to be standard conforming. The ICC profiles can be obtained from <a href="https://wiki.contextgarden.net/PDFX#ICC_profiles">ConTeXt ICC Profiles</a>. See also <a href="https://wiki.contextgarden.net/PDF/A">ConTeXt PDFA</a> for more details.
 </dd>
 </dl>
 <h2 id="variables-for-man-pages">Variables for man pages</h2>
@@ -846,7 +950,15 @@ X
 $else$
 Y
 $endif$</code></pre>
-<p>This will include <code>X</code> in the template if <code>variable</code> has a non-null value; otherwise it will include <code>Y</code>. <code>X</code> and <code>Y</code> are placeholders for any valid template text, and may include interpolated variables or other conditionals. The <code>$else$</code> section may be omitted.</p>
+<p>This will include <code>X</code> in the template if <code>variable</code> has a truthy value; otherwise it will include <code>Y</code>. Here a truthy value is any of the following:</p>
+<ul>
+<li>a string that is not entirely white space,</li>
+<li>a non-empty array where the first value is truthy,</li>
+<li>any number (including zero),</li>
+<li>any object,</li>
+<li>the boolean <code>true</code> (to specify the boolean <code>true</code> value using YAML metadata or the <code>--metadata</code> flag, use <code>true</code>, <code>True</code>, or <code>TRUE</code>; with the <code>--variable</code> flag, simply omit a value for the variable, e.g. <code>--variable draft</code>).</li>
+</ul>
+<p><code>X</code> and <code>Y</code> are placeholders for any valid template text, and may include interpolated variables or other conditionals. The <code>$else$</code> section may be omitted.</p>
 <p>When variables can have multiple values (for example, <code>author</code> in a multi-author document), you can use the <code>$for$</code> keyword:</p>
 <pre><code>$for(author)$
 &lt;meta name=&quot;author&quot; content=&quot;$author$&quot; /&gt;
@@ -954,10 +1066,10 @@ $endfor$</code></pre>
 <p>This extension can be enabled/disabled for the following formats (in addition to <code>markdown</code>):</p>
 <dl>
 <dt>input formats</dt>
-<dd><code>latex</code>, <code>org</code>, <code>textile</code>
+<dd><code>latex</code>, <code>org</code>, <code>textile</code>, <code>html</code> (environments, <code>\ref</code>, and <code>\eqref</code> only)
 </dd>
 <dt>output formats</dt>
-<dd><code>textile</code>
+<dd><code>textile</code>, <code>commonmark</code>
 </dd>
 </dl>
 <h4 id="native_divs"><a href="#extension-native_divs">Extension: <code>native_divs</code></a></h4>
@@ -993,7 +1105,7 @@ $endfor$</code></pre>
 <p>reads literate Haskell source formatted with Markdown conventions and writes ordinary HTML (without bird tracks).</p>
 <pre><code>pandoc -f markdown+lhs -t html+lhs</code></pre>
 <p>writes HTML with the Haskell code in bird tracks, so it can be copied and pasted as literate Haskell source.</p>
-<p>Note that GHC expects the bird tracks in the first column, so indentend literate code blocks (e.g. inside an itemized environment) will not be picked up by the Haskell compiler.</p>
+<p>Note that GHC expects the bird tracks in the first column, so indented literate code blocks (e.g. inside an itemized environment) will not be picked up by the Haskell compiler.</p>
 <h2 id="other-extensions">Other extensions</h2>
 <h4 id="extension-empty_paragraphs">Extension: <code>empty_paragraphs</code></h4>
 <p>Allows empty paragraphs. By default empty paragraphs are omitted.</p>
@@ -1003,7 +1115,14 @@ $endfor$</code></pre>
 <dd><code>docx</code>, <code>html</code>
 </dd>
 <dt>output formats</dt>
-<dd><code>markdown</code>, <code>docx</code>, <code>odt</code>, <code>opendocument</code>, <code>html</code>
+<dd><code>docx</code>, <code>odt</code>, <code>opendocument</code>, <code>html</code>
+</dd>
+</dl>
+<h4 id="ext-styles">Extension: <code>styles</code></h4>
+<p>Read all docx styles as divs (for paragraph styles) and spans (for character styles) regardless of whether pandoc understands the meaning of these styles. This can be used with <a href="#custom-styles-in-docx">docx custom styles</a>. Disabled by default.</p>
+<dl>
+<dt>input formats</dt>
+<dd><code>docx</code>
 </dd>
 </dl>
 <h4 id="extension-amuse">Extension: <code>amuse</code></h4>
@@ -1141,7 +1260,7 @@ qsort []     = []
 qsort (x:xs) = qsort (filter (&lt; x) xs) ++ [x] ++
                qsort (filter (&gt;= x) xs)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</code></pre>
-<p>Here <code>mycode</code> is an identifier, <code>haskell</code> and <code>numberLines</code> are classes, and <code>startFrom</code> is an attribute with value <code>100</code>. Some output formats can use this information to do syntax highlighting. Currently, the only output formats that uses this information are HTML, LaTeX, Docx, and Ms. If highlighting is supported for your output format and language, then the code block above will appear highlighted, with numbered lines. (To see which languages are supported, type <code>pandoc --list-highlight-languages</code>.) Otherwise, the code block above will appear as follows:</p>
+<p>Here <code>mycode</code> is an identifier, <code>haskell</code> and <code>numberLines</code> are classes, and <code>startFrom</code> is an attribute with value <code>100</code>. Some output formats can use this information to do syntax highlighting. Currently, the only output formats that uses this information are HTML, LaTeX, Docx, Ms, and PowerPoint. If highlighting is supported for your output format and language, then the code block above will appear highlighted, with numbered lines. (To see which languages are supported, type <code>pandoc --list-highlight-languages</code>.) Otherwise, the code block above will appear as follows:</p>
 <pre><code>&lt;pre id=&quot;mycode&quot; class=&quot;haskell numberLines&quot; startFrom=&quot;100&quot;&gt;
   &lt;code&gt;
   ...
@@ -1450,7 +1569,7 @@ multiple lines.</code></pre>
 apple|2.05
 pear|1.37
 orange|3.09</code></pre>
-<p>The cells of pipe tables cannot contain block elements like paragraphs and lists, and cannot span multiple lines. If a pipe table contains a row whose printable content is wider than the column width (see <code>--columns</code>), then the cell contents will wrap, with the relative cell widths determined by the widths of the separator lines. (In this case, the table will take up the full text width.) If no lines are wider than column width, then cell contents will not be wrapped, and the cells will be sized to their contents.</p>
+<p>The cells of pipe tables cannot contain block elements like paragraphs and lists, and cannot span multiple lines. If a pipe table contains a row whose printable content is wider than the column width (see <code>--columns</code>), then the table will take up the full text width and the cell contents will wrap, with the relative cell widths determined by the number of dashes in the line separating the table header from the table body. (For example <code>---|-</code> would make the first column 3/4 and the second column 1/4 of the full text width.) On the other hand, if no lines are wider than column width, then cell contents will not be wrapped, and the cells will be sized to their contents.</p>
 <p>Note: pandoc also recognizes pipe tables of the following form, as can be produced by Emacs’ orgtbl-mode:</p>
 <pre><code>| One | Two   |
 |-----+-------|
@@ -1494,8 +1613,8 @@ orange|3.09</code></pre>
 <h4 id="extension-yaml_metadata_block">Extension: <code>yaml_metadata_block</code></h4>
 <p>A YAML metadata block is a valid YAML object, delimited by a line of three hyphens (<code>---</code>) at the top and a line of three hyphens (<code>---</code>) or three dots (<code>...</code>) at the bottom. A YAML metadata block may occur anywhere in the document, but if it is not at the beginning, it must be preceded by a blank line. (Note that, because of the way pandoc concatenates input files when several are provided, you may also keep the metadata in a separate YAML file and pass it to pandoc as an argument, along with your Markdown files:</p>
 <pre><code>pandoc chap1.md chap2.md chap3.md metadata.yaml -s -o book.html</code></pre>
-<p>Just be sure that the YAML file begins with <code>---</code> and ends with <code>---</code> or <code>...</code>.)</p>
-<p>Metadata will be taken from the fields of the YAML object and added to any existing document metadata. Metadata can contain lists and objects (nested arbitrarily), but all string scalars will be interpreted as Markdown. Fields with names ending in an underscore will be ignored by pandoc. (They may be given a role by external processors.)</p>
+<p>Just be sure that the YAML file begins with <code>---</code> and ends with <code>---</code> or <code>...</code>.) Alternatively, you can use the <code>--metadata-file</code> option. Using that approach however, you cannot reference content (like footnotes) from the main markdown input document.</p>
+<p>Metadata will be taken from the fields of the YAML object and added to any existing document metadata. Metadata can contain lists and objects (nested arbitrarily), but all string scalars will be interpreted as Markdown. Fields with names ending in an underscore will be ignored by pandoc. (They may be given a role by external processors.) Field names must not be interpretable as YAML numbers or boolean values (so, for example, <code>yes</code>, <code>True</code>, and <code>15</code> cannot be used as field names).</p>
 <p>A document may contain multiple metadata blocks. The metadata fields will be combined through a <em>left-biased union</em>: if two metadata blocks attempt to set the same field, the value from the first block will be taken.</p>
 <p>When pandoc is used with <code>-t markdown</code> to create a Markdown document, a YAML metadata block will be produced only if the <code>-s/--standalone</code> option is used. All of the metadata will appear in a single block at the beginning of the document.</p>
 <p>Note that YAML escaping rules must be followed. Thus, for example, if a title contains a colon, it must be quoted. The pipe character (<code>|</code>) can be used to begin an indented block that will be interpreted literally, without need for escaping. This form is necessary when the field contains blank lines or block-level formatting:</p>
@@ -1504,7 +1623,7 @@ title:  &#39;This is the title: it contains a colon&#39;
 author:
 - Author One
 - Author Two
-tags: [nothing, nothingness]
+keywords: [nothing, nothingness]
 abstract: |
   This is the abstract.
 
@@ -1532,7 +1651,8 @@ $endif$
 $endfor$</code></pre>
 <p>Raw content to include in the document’s header may be specified using <code>header-includes</code>; however, it is important to mark up this content as raw code for a particular output format, using the <a href="#extension-raw_attribute"><code>raw_attribute</code> extension</a>), or it will be interpreted as markdown. For example:</p>
 <pre><code>header-includes:
-- ```{=latex}
+- |
+  ```{=latex}
   \let\oldsection\section
   \renewcommand{\section}[1]{\clearpage\oldsection{#1}}
   ```</code></pre>
@@ -1596,8 +1716,11 @@ is *emphasized with asterisks*.</code></pre>
 <p>Anything between two <code>$</code> characters will be treated as TeX math. The opening <code>$</code> must have a non-space character immediately to its right, while the closing <code>$</code> must have a non-space character immediately to its left, and must not be followed immediately by a digit. Thus, <code>$20,000 and $30,000</code> won’t parse as math. If for some reason you need to enclose text in literal <code>$</code> characters, backslash-escape them and they won’t be treated as math delimiters.</p>
 <p>TeX math will be printed in all output formats. How it is rendered depends on the output format:</p>
 <dl>
-<dt>Markdown, LaTeX, Emacs Org mode, ConTeXt, ZimWiki</dt>
-<dd>It will appear verbatim between <code>$</code> characters.
+<dt>LaTeX</dt>
+<dd>It will appear verbatim surrounded by <code>\(...\)</code> (for inline math) or <code>\[...\]</code> (for display math).
+</dd>
+<dt>Markdown, Emacs Org mode, ConTeXt, ZimWiki</dt>
+<dd>It will appear verbatim surrounded by <code>$...$</code> (for inline math) or <code>$$...$$</code> (for display math).
 </dd>
 <dt>reStructuredText</dt>
 <dd>It will be rendered using an <a href="http://docutils.sourceforge.net/docs/ref/rst/roles.html#math">interpreted text role <code>:math:</code></a>.
@@ -1684,7 +1807,15 @@ blah blah
 ```</code></pre>
 <p>And the following produces a raw <code>html</code> inline element:</p>
 <pre><code>This is `&lt;a&gt;html&lt;/a&gt;`{=html}</code></pre>
-<p>The format name should match the target format name (see <code>-t/--to</code>, above, for a list, or use <code>pandoc --list-output-formats</code>).</p>
+<p>This can be useful to insert raw xml into <code>docx</code> documents, e.g. a pagebreak:</p>
+<pre><code>```{=openxml}
+&lt;w:p&gt;
+  &lt;w:r&gt;
+    &lt;w:br w:type=&quot;page&quot;/&gt;
+  &lt;/w:r&gt;
+&lt;/w:p&gt;
+```</code></pre>
+<p>The format name should match the target format name (see <code>-t/--to</code>, above, for a list, or use <code>pandoc --list-output-formats</code>). Use <code>openxml</code> for <code>docx</code> output, <code>opendocument</code> for <code>odt</code> output, <code>html5</code> for <code>epub3</code> output, <code>html4</code> for <code>epub2</code> output, and <code>latex</code>, <code>beamer</code>, <code>ms</code>, or <code>html5</code> for <code>pdf</code> output (depending on what you use for <code>--pdf-engine</code>).</p>
 <p>This extension presupposes that the relevant kind of inline code or fenced code block is enabled. Thus, for example, to use a raw attribute with a backtick code block, <code>backtick_code_blocks</code> must be enabled.</p>
 <p>The raw attribute cannot be combined with regular attributes.</p>
 <h2 id="latex-macros">LaTeX macros</h2>
@@ -1937,7 +2068,7 @@ references:
   language: en-GB
 ...</code></pre>
 <p>(<code>pandoc-citeproc --bib2yaml</code> can produce these from a bibliography file in one of the supported formats.)</p>
-<p>Citations and references can be formatted using any style supported by the <a href="http://citationstyles.org">Citation Style Language</a>, listed in the <a href="https://www.zotero.org/styles">Zotero Style Repository</a>. These files are specified using the <code>--csl</code> option or the <code>csl</code> metadata field. By default, <code>pandoc-citeproc</code> will use the <a href="http://chicagomanualofstyle.org">Chicago Manual of Style</a> author-date format. The CSL project provides further information on <a href="http://citationstyles.org/styles/">finding and editing styles</a>.</p>
+<p>Citations and references can be formatted using any style supported by the <a href="http://citationstyles.org">Citation Style Language</a>, listed in the <a href="https://www.zotero.org/styles">Zotero Style Repository</a>. These files are specified using the <code>--csl</code> option or the <code>csl</code> metadata field. By default, <code>pandoc-citeproc</code> will use the <a href="http://chicagomanualofstyle.org">Chicago Manual of Style</a> author-date format. The CSL project provides further information on <a href="https://citationstyles.org/authors/">finding and editing styles</a>.</p>
 <p>To make your citations hyperlinks to the corresponding bibliography entries, add <code>link-citations: true</code> to your YAML metadata.</p>
 <p>Citations go inside square brackets and are separated by semicolons. Each citation must have a key, composed of ‘@’ + the citation identifier from the database, and may optionally have a prefix, a locator, and a suffix. The citation key must begin with a letter, digit, or <code>_</code>, and may contain alphanumerics, <code>_</code>, and internal punctuation characters (<code>:.#$%&amp;-+?&lt;&gt;~/</code>). Here are some examples:</p>
 <pre><code>Blah blah [see @doe99, pp. 33-35; also @smith04, chap. 1].
@@ -1970,7 +2101,7 @@ nocite: |
 nocite: |
   @*
 ...</code></pre>
-<p>For LaTeX or PDF output, you can also use <a href="https://ctan.org/pkg/natbib"><code>natbib</code></a> or <a href="https://ctan.org/pkg/biblatex"><code>biblatex</code></a> to render bibliography. In order to do so, specify bibliography files as outlined above, and add <code>--natbib</code> or <code>--biblatex</code> argument to <code>pandoc</code> invocation. Bear in mind that bibliography files have to be in respective format (either BibTeX or BibLaTeX).</p>
+<p>For LaTeX output, you can also use <a href="https://ctan.org/pkg/natbib"><code>natbib</code></a> or <a href="https://ctan.org/pkg/biblatex"><code>biblatex</code></a> to render the bibliography. In order to do so, specify bibliography files as outlined above, and add <code>--natbib</code> or <code>--biblatex</code> argument to <code>pandoc</code> invocation. Bear in mind that bibliography files have to be in respective format (either BibTeX or BibLaTeX).</p>
 <p>For more information, see the <a href="https://github.com/jgm/pandoc-citeproc/blob/master/man/pandoc-citeproc.1.md">pandoc-citeproc man page</a>.</p>
 <h2 id="non-pandoc-extensions">Non-pandoc extensions</h2>
 <p>The following Markdown syntax extensions are not enabled by default in pandoc, but may be enabled by adding <code>+EXTENSION</code> to the format name, where <code>EXTENSION</code> is the name of the extension. Thus, for example, <code>markdown+hard_line_breaks</code> is Markdown with hard line breaks.</p>
@@ -2048,7 +2179,7 @@ Comment: This is a sample mmd title block, with
 <p>Note, however, that <code>commonmark</code> and <code>gfm</code> have limited support for extensions. Only those listed below (and <code>smart</code> and <code>raw_tex</code>) will work. The extensions can, however, all be individually disabled. Also, <code>raw_tex</code> only affects <code>gfm</code> output, not input.</p>
 <dl>
 <dt><code>gfm</code> (GitHub-Flavored Markdown)</dt>
-<dd><code>pipe_tables</code>, <code>raw_html</code>, <code>fenced_code_blocks</code>, <code>auto_identifiers</code>, <code>ascii_identifiers</code>, <code>backtick_code_blocks</code>, <code>autolink_bare_uris</code>, <code>intraword_underscores</code>, <code>strikeout</code>, <code>hard_line_breaks</code>, <code>emoji</code>, <code>shortcut_reference_links</code>, <code>angle_brackets_escapable</code>.
+<dd><code>pipe_tables</code>, <code>raw_html</code>, <code>fenced_code_blocks</code>, <code>gfm_auto_identifiers</code>, <code>ascii_identifiers</code>, <code>backtick_code_blocks</code>, <code>autolink_bare_uris</code>, <code>intraword_underscores</code>, <code>strikeout</code>, <code>hard_line_breaks</code>, <code>emoji</code>, <code>shortcut_reference_links</code>, <code>angle_brackets_escapable</code>.
 </dd>
 </dl>
 <h1 id="producing-slide-shows-with-pandoc">Producing slide shows with pandoc</h1>
@@ -2109,10 +2240,24 @@ Comment: This is a sample mmd title block, with
 <p>These rules are designed to support many different styles of slide show. If you don’t care about structuring your slides into sections and subsections, you can just use level 1 headers for all each slide. (In that case, level 1 will be the slide level.) But you can also structure the slide show into sections, as in the example above.</p>
 <p>Note: in reveal.js slide shows, if slide level is 2, a two-dimensional layout will be produced, with level 1 headers building horizontally and level 2 headers building vertically. It is not recommended that you use deeper nesting of section levels with reveal.js.</p>
 <h2 id="incremental-lists">Incremental lists</h2>
-<p>By default, these writers produce lists that display “all at once.” If you want your lists to display incrementally (one item at a time), use the <code>-i</code> option. If you want a particular list to depart from the default (that is, to display incrementally without the <code>-i</code> option and all at once with the <code>-i</code> option), put it in a block quote:</p>
+<p>By default, these writers produce lists that display “all at once.” If you want your lists to display incrementally (one item at a time), use the <code>-i</code> option. If you want a particular list to depart from the default, put it in a <code>div</code> block with class <code>incremental</code> or <code>nonincremental</code>. So, for example, using the <code>fenced div</code> syntax, the following would be incremental regardless of the document default:</p>
+<pre><code>::: incremental
+
+- Eat spaghetti
+- Drink wine
+
+:::</code></pre>
+<p>or</p>
+<pre><code>::: nonincremental
+
+- Eat spaghetti
+- Drink wine
+
+:::</code></pre>
+<p>While using <code>incremental</code> and <code>nonincremental</code> divs are the recommended method of setting incremental lists on a per-case basis, an older method is also supported: putting lists inside a blockquote will depart from the document default (that is, it will display incrementally without the <code>-i</code> option and all at once with the <code>-i</code> option):</p>
 <pre><code>&gt; - Eat spaghetti
 &gt; - Drink wine</code></pre>
-<p>In this way incremental and nonincremental lists can be mixed in a single document.</p>
+<p>Both methods allow incremental and nonincremental lists to be mixed in a single document.</p>
 <h2 id="inserting-pauses">Inserting pauses</h2>
 <p>You can add “pauses” within a slide by including a paragraph containing three dots, separated by spaces:</p>
 <pre><code># Slide with a pause
@@ -2133,7 +2278,7 @@ content after the pause</code></pre>
 <p>Note that header attributes will turn into slide attributes (on a <code>&lt;div&gt;</code> or <code>&lt;section&gt;</code>) in HTML slide formats, allowing you to style individual slides. In beamer, the only header attribute that affects slides is the <code>allowframebreaks</code> class, which sets the <code>allowframebreaks</code> option, causing multiple slides to be created if the content overfills the frame. This is recommended especially for bibliographies:</p>
 <pre><code># References {.allowframebreaks}</code></pre>
 <h2 id="speaker-notes">Speaker notes</h2>
-<p>reveal.js has good support for speaker notes. You can add notes to your Markdown document thus:</p>
+<p>Speaker notes are supported in reveal.js and PowerPoint (pptx) output. You can add notes to your Markdown document thus:</p>
 <pre><code>::: notes
 
 This is my note.
@@ -2142,7 +2287,8 @@ This is my note.
 - like this list
 
 :::</code></pre>
-<p>To show the notes window, press <code>s</code> while viewing the presentation. Notes are not yet supported for other slide formats, but the notes will not appear on the slides themselves.</p>
+<p>To show the notes window in reveal.js, press <code>s</code> while viewing the presentation. Speaker notes in PowerPoint will be available, as usual, in handouts and presenter view.</p>
+<p>Notes are not yet supported for other slide formats, but the notes will not appear on the slides themselves.</p>
 <h2 id="columns">Columns</h2>
 <p>To put material in side by side columns, you can use a native div container with class <code>columns</code>, containing two or more div containers with class <code>column</code> and a <code>width</code> attribute:</p>
 <pre><code>:::::::::::::: {.columns}
@@ -2156,7 +2302,28 @@ contents...
 <h2 id="frame-attributes-in-beamer">Frame attributes in beamer</h2>
 <p>Sometimes it is necessary to add the LaTeX <code>[fragile]</code> option to a frame in beamer (for example, when using the <code>minted</code> environment). This can be forced by adding the <code>fragile</code> class to the header introducing the slide:</p>
 <pre><code># Fragile slide {.fragile}</code></pre>
-<p>All of the other frame attributes described in Section 8.1 of the <a href="http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf">Beamer User’s Guide</a> may also be used: <code>allowdisplaybreaks</code>, <code>allowframebreaks</code>, <code>b</code>, <code>c</code>, <code>t</code>, <code>environment</code>, <code>label</code>, <code>plain</code>, <code>shrink</code>.</p>
+<p>All of the other frame attributes described in Section 8.1 of the <a href="http://ctan.math.utah.edu/ctan/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf">Beamer User’s Guide</a> may also be used: <code>allowdisplaybreaks</code>, <code>allowframebreaks</code>, <code>b</code>, <code>c</code>, <code>t</code>, <code>environment</code>, <code>label</code>, <code>plain</code>, <code>shrink</code>, <code>standout</code>, <code>noframenumbering</code>.</p>
+<h2 id="background-in-reveal.js-and-beamer">Background in reveal.js and beamer</h2>
+<p>Background images can be added to self-contained reveal.js slideshows and to beamer slideshows.</p>
+<p>For the same image on every slide, use the configuration option <code>background-image</code> either in the YAML metadata block or as a command-line variable. (There are no other options in beamer and the rest of this section concerns reveal.js slideshows.)</p>
+<p>For reveal.js, you can instead use the reveal.js-native option <code>parallaxBackgroundImage</code>. You can also set <code>parallaxBackgroundHorizontal</code> and <code>parallaxBackgroundVertical</code> the same way and must also set <code>parallaxBackgroundSize</code> to have your values take effect.</p>
+<p>To set an image for a particular reveal.js slide, add <code>{data-background-image=&quot;/path/to/image&quot;}</code> to the first slide-level header on the slide (which may even be empty).</p>
+<p>In reveal.js’s overview mode, the parallaxBackgroundImage will show up only on the first slide.</p>
+<p>Other reveal.js background settings also work on individual slides, including <code>data-background-size</code>, <code>data-background-repeat</code>, <code>data-background-color</code>, <code>data-transition</code>, and <code>data-transition-speed</code>.</p>
+<p>See the <a href="https://github.com/hakimel/reveal.js#slide-backgrounds">reveal.js documentation</a> for more details.</p>
+<p>For example in reveal.js:</p>
+<pre><code>---
+title: My Slideshow
+parallaxBackgroundImage: /path/to/my/background_image.png
+---
+
+## Slide One
+
+Slide 1 has background_image.png as its background.
+
+## {data-background-image=&quot;/path/to/special_image.jpg&quot;}
+
+Slide 2 has a special image for its background, even though the header has no content.</code></pre>
 <h1 id="creating-epubs-with-pandoc">Creating EPUBs with pandoc</h1>
 <h2 id="epub-metadata">EPUB Metadata</h2>
 <p>EPUB metadata may be specified using the <code>--epub-metadata</code> option, but if the source document is Markdown, it is better to use a <a href="#extension-yaml_metadata_block">YAML metadata block</a>. Here is an example:</p>
@@ -2241,18 +2408,135 @@ ibooks:
 </ul>
 </dd>
 </dl>
+<h2 id="the-epubtype-attribute">The <code>epub:type</code> attribute</h2>
+<p>You can mark up the header that corresponds to an EPUB chapter using the <a href="http://www.idpf.org/epub/31/spec/epub-contentdocs.html#sec-epub-type-attribute"><code>epub:type</code> attribute</a>. For example, to set the attribute to the value <code>prologue</code>, use this markdown:</p>
+<pre><code># My chapter {epub:type=prologue}</code></pre>
+<p>Which will result in:</p>
+<pre><code>&lt;body epub:type=&quot;frontmatter&quot;&gt;
+  &lt;section epub:type=&quot;prologue&quot;&gt;
+    &lt;h1&gt;My chapter&lt;/h1&gt;</code></pre>
+<p>Pandoc will output <code>&lt;body epub:type=&quot;bodymatter&quot;&gt;</code>, unless you use one of the following values, in which case either <code>frontmatter</code> or <code>backmatter</code> will be output.</p>
+<table>
+<thead>
+<tr class="header">
+<th><code>epub:type</code> of first section</th>
+<th><code>epub:type</code> of body</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prologue</td>
+<td>frontmatter</td>
+</tr>
+<tr class="even">
+<td>abstract</td>
+<td>frontmatter</td>
+</tr>
+<tr class="odd">
+<td>acknowledgments</td>
+<td>frontmatter</td>
+</tr>
+<tr class="even">
+<td>copyright-page</td>
+<td>frontmatter</td>
+</tr>
+<tr class="odd">
+<td>dedication</td>
+<td>frontmatter</td>
+</tr>
+<tr class="even">
+<td>foreword</td>
+<td>frontmatter</td>
+</tr>
+<tr class="odd">
+<td>halftitle,</td>
+<td>frontmatter</td>
+</tr>
+<tr class="even">
+<td>introduction</td>
+<td>frontmatter</td>
+</tr>
+<tr class="odd">
+<td>preface</td>
+<td>frontmatter</td>
+</tr>
+<tr class="even">
+<td>seriespage</td>
+<td>frontmatter</td>
+</tr>
+<tr class="odd">
+<td>titlepage</td>
+<td>frontmatter</td>
+</tr>
+<tr class="even">
+<td>afterword</td>
+<td>backmatter</td>
+</tr>
+<tr class="odd">
+<td>appendix</td>
+<td>backmatter</td>
+</tr>
+<tr class="even">
+<td>colophon</td>
+<td>backmatter</td>
+</tr>
+<tr class="odd">
+<td>conclusion</td>
+<td>backmatter</td>
+</tr>
+<tr class="even">
+<td>epigraph</td>
+<td>backmatter</td>
+</tr>
+</tbody>
+</table>
 <h2 id="linked-media">Linked media</h2>
-<p>By default, pandoc will download linked media (including audio and video) and include it in the EPUB container, yielding a completely self-contained EPUB. If you want to link to external media resources instead, use raw HTML in your source and add <code>data-external=&quot;1&quot;</code> to the tag with the <code>src</code> attribute. For example:</p>
+<p>By default, pandoc will download media referenced from any <code>&lt;img&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code> or <code>&lt;source&gt;</code> element present in the generated EPUB, and include it in the EPUB container, yielding a completely self-contained EPUB. If you want to link to external media resources instead, use raw HTML in your source and add <code>data-external=&quot;1&quot;</code> to the tag with the <code>src</code> attribute. For example:</p>
 <pre><code>&lt;audio controls=&quot;1&quot;&gt;
   &lt;source src=&quot;http://example.com/music/toccata.mp3&quot;
           data-external=&quot;1&quot; type=&quot;audio/mpeg&quot;&gt;
   &lt;/source&gt;
 &lt;/audio&gt;</code></pre>
 <h1 id="syntax-highlighting">Syntax highlighting</h1>
-<p>Pandoc will automatically highlight syntax in <a href="#fenced-code-blocks">fenced code blocks</a> that are marked with a language name. The Haskell library <a href="https://github.com/jgm/skylighting">skylighting</a> is used for highlighting, which works in HTML, Docx, Ms, and LaTeX/PDF output. To see a list of language names that pandoc will recognize, type <code>pandoc --list-highlight-languages</code>.</p>
+<p>Pandoc will automatically highlight syntax in <a href="#fenced-code-blocks">fenced code blocks</a> that are marked with a language name. The Haskell library <a href="https://github.com/jgm/skylighting">skylighting</a> is used for highlighting. Currently highlighting is supported only for HTML, EPUB, Docx, Ms, and LaTeX/PDF output. To see a list of language names that pandoc will recognize, type <code>pandoc --list-highlight-languages</code>.</p>
 <p>The color scheme can be selected using the <code>--highlight-style</code> option. The default color scheme is <code>pygments</code>, which imitates the default color scheme used by the Python library pygments (though pygments is not actually used to do the highlighting). To see a list of highlight styles, type <code>pandoc --list-highlight-styles</code>.</p>
+<p>If you are not satisfied with the predefined styles, you can use <code>--print-highlight-style</code> to generate a JSON <code>.theme</code> file which can be modified and used as the argument to <code>--highlight-style</code>. To get a JSON version of the <code>pygments</code> style, for example:</p>
+<pre><code>pandoc --print-highlight-style pygments &gt; my.theme</code></pre>
+<p>Then edit <code>my.theme</code> and use it like this:</p>
+<pre><code>pandoc --highlight-style my.theme</code></pre>
+<p>If you are not satisfied with the built-in highlighting, or you want highlight a language that isn’t supported, you can use the <code>--syntax-definition</code> option to load a <a href="https://docs.kde.org/stable5/en/applications/katepart/highlight.html">KDE-style XML syntax definition file</a>. Before writing your own, have a look at KDE’s <a href="https://github.com/KDE/syntax-highlighting/tree/master/data/syntax">repository of syntax definitions</a>.</p>
 <p>To disable highlighting, use the <code>--no-highlight</code> option.</p>
-<h1 id="custom-styles-in-docx-output">Custom Styles in Docx Output</h1>
+<h1 id="custom-styles-in-docx">Custom Styles in Docx</h1>
+<h2 id="input">Input</h2>
+<p>The docx reader, by default, only reads those styles that it can convert into pandoc elements, either by direct conversion or interpreting the derivation of the input document’s styles.</p>
+<p>By enabling the <a href="#ext-styles"><code>styles</code> extension</a> in the docx reader (<code>-f docx+styles</code>), you can produce output that maintains the styles of the input document, using the <code>custom-style</code> class. Paragraph styles are interpreted as divs, while character styles are interpreted as spans.</p>
+<p>For example, using the <code>custom-style-reference.docx</code> file in the test directory, we have the following different outputs:</p>
+<p>Without the <code>+styles</code> extension:</p>
+<pre><code>$ pandoc test/docx/custom-style-reference.docx -f docx -t markdown
+This is some text.
+
+This is text with an *emphasized* text style. And this is text with a
+**strengthened** text style.
+
+&gt; Here is a styled paragraph that inherits from Block Text.</code></pre>
+<p>And with the extension:</p>
+<pre><code>$ pandoc test/docx/custom-style-reference.docx -f docx+styles -t markdown
+
+::: {custom-style=&quot;FirstParagraph&quot;}
+This is some text.
+:::
+
+::: {custom-style=&quot;BodyText&quot;}
+This is text with an [emphasized]{custom-style=&quot;Emphatic&quot;} text style.
+And this is text with a [strengthened]{custom-style=&quot;Strengthened&quot;}
+text style.
+:::
+
+::: {custom-style=&quot;MyBlockStyle&quot;}
+&gt; Here is a styled paragraph that inherits from Block Text.
+:::</code></pre>
+<p>With these custom styles, you can use your input document as a reference-doc while creating docx output (see below), and maintain the same styles in your input and output files.</p>
+<h2 id="output">Output</h2>
 <p>By default, pandoc’s docx output applies a predefined set of styles for blocks such as paragraphs and block quotes, and uses largely default formatting (italics, bold) for inlines. This will work for most purposes, especially alongside a <code>reference.docx</code> file. However, if you need to apply your own styles to blocks, or match a preexisting set of styles, pandoc allows you to define custom styles for blocks and text using <code>div</code>s and <code>span</code>s, respectively.</p>
 <p>If you define a <code>div</code> or <code>span</code> with the attribute <code>custom-style</code>, pandoc will apply your specified style to the contained elements. So, for example using the <code>bracketed_spans</code> syntax,</p>
 <pre><code>[Get out]{custom-style=&quot;Emphatically&quot;}, he said.</code></pre>
