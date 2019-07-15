@@ -28,6 +28,6 @@ Source: ..\doc\lt_*; DestDir: {app};
 ;Source: ..\doc\lt_image\*.*; DestDir: {app}\lt_image;
 
 [Icons]
-Name: {sendto}\Braille; Filename: {app}\lt.bat; Flags: runminimized; WorkingDir: .
-Name: {sendto}\Uncontracted Braille; Filename: {app}\lt1.bat; Flags: runminimized; WorkingDir: .
-Name: {sendto}\Back From Braille; Filename: {app}\ltback.bat; Flags: runminimized; WorkingDir: .
+Name: {usersendto}\Braille; Filename: {app}\lt.bat; Flags: runminimized; WorkingDir: .
+Name: {usersendto}\Uncontracted Braille; Filename: {app}\lt1.bat; Flags: runminimized; WorkingDir: .
+Name: {usersendto}\Back From Braille; Filename: {app}\ltback.bat; Flags: runminimized; WorkingDir: .
