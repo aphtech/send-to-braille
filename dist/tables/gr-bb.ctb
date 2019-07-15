@@ -1,5 +1,20 @@
 # liblouis: Table for Septuagint and Greek New Testament in Unicode
 #
+# -----------
+#-display-name: Ancient Greek braille
+#
+#+locale:grc
+#
+# TODO: Please correct the metadata above. It is not meant to be
+# accurate nor complete. It hasn't been verified by the table
+# author yet. It is merely an attempt by the liblouis maintainers
+# to get some sensible initial values in place.
+#
+# TODO: Please add a reference to official documentation about
+# the implemented braille code. Preferably submit the documents
+# to https://github.com/liblouis/braille-specs.
+# ------------
+#
 #  Copyright (C) 2004-2008 ViewPlus Technologies, Inc. www.viewplus.com
 #  Copyright (C) 2004-2006 JJB Software, Inc. www.jjb-software.com
 #  Copyright (C) 2012 Mesar Hameed <mesar.hameed@gmail.com>
@@ -21,9 +36,9 @@
 #  <http://www.gnu.org/licenses/>.
 
 space \t 7 tab
-space \s 0 blank
-space \x000a 0 newline
-space \x000d 0 carriage return
+space \x00a0 9 unbreakable space
+include spaces.uti
+
 include loweredDigits6Dots.uti
 include latinLetterDef6Dots.uti
 punctuation , 6
@@ -58,7 +73,6 @@ sign \\ 12567
 sign | 1256
 math / 34
 sign * 16
-space \x00a0 9 unbreakable space
 
 punctuation \x2011 36
 punctuation \x2014 36-36
