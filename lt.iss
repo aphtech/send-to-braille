@@ -1,6 +1,11 @@
 #define app="SendToBraille"
-#include "lt_inc.iss"
-;#include "..\inc\common.iss"
+[setup]
+AppVerName=Send To Braille Shortcut 2.0.00
+#define setup="lt_setup"
+#define fol="pub\\"
+
+[files]
+
 
 [setup]
 AppPublisher=APH
@@ -8,7 +13,7 @@ AppPublisherURL=http://tech.aph.org
 AppSupportURL=http://tech.aph.org
 AppUpdatesURL=http://tech.aph.org
 DisableProgramGroupPage=yes
-;LicenseFile=..\doc\common\license.txt
+;LicenseFile=license.txt
 PrivilegesRequired=none
 DirExistsWarning=no
 UsePreviousAppDir=yes
@@ -24,7 +29,7 @@ MinVersion = 0,6.0
 
 [Files]
 Source: "dist\*.*"; DestDir: "{app}"; Flags: recursesubdirs;
-Source: ..\doc\lt_*; DestDir: {app};
+Source: doc\lt_*; DestDir: {app};
 ;Source: ..\doc\lt_image\*.*; DestDir: {app}\lt_image;
 
 [Icons]

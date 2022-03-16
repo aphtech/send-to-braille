@@ -25,7 +25,27 @@ h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display
 <h1 >Send to<br /> Braille<a href="#Send-to-Braille" class="wiki-anchor">&para;</a></h1>
 
 
-	<p>Send To Braille is a tool to create a quick and dirty braille file. It adds a shortcut to your Send To folder, so you can point at a file, right click and pick Send To, then pick Braille. It creates a  braille version of the file with minimal formatting in the same folder with .brl appended to the end of the original file's name. It keeps the original extension to help you see the original file's source, so if you translate test.doc, you end up with test.doc.brl.<br />Send To Braille Shortcut produces "Quick and dirty" braille. It is a translation only, much like you get from screen reader output. It is not formatted in any way except to try to preserve paragraphs. Headings and list items are generally on their own lines, but exact results depend on the original file. <a href="http://www.pandoc.org" class="external">Pandoc</a> converts the file into plain text before sending it to the <a href="http://www.liblouis.org" class="external">Liblouis</a> translator.<br />Correct braille transcription depends on a human to make several decisions and provide additional value to titles that are not generally accessible in some way. Some documents, however, may have enough information without the additional attention to justify a quick and dirty translation. And, this is where the Send To Braille shortcut comes in.</p>
+	<p>Send To Braille is a tool to create quick and dirty braille
+files. It adds a shortcut to your Send To folder, so you can select
+one or more files, right click and pick Send To, then pick Braille.
+It creates a braille version of the file with minimal formatting in
+the same folder with .brl appended to the end of the original file's
+name. It keeps the original extension to help you see the original
+file's source, so if you translate test.doc, you end up with
+test.doc.brl.<br />Send To Braille Shortcut produces "Quick and dirty"
+braille. It is a translation only, much like you get from screen
+reader output. It is not formatted in any way except to try to
+preserve paragraphs. Headings and list items are generally on their
+own lines, but exact results depend on the original file. <a
+href="http://www.pandoc.org" class="external">Pandoc</a> converts the
+file into plain text before sending it to the <a
+href="http://www.liblouis.org" class="external">Liblouis</a>
+translator.<br />Correct braille transcription depends on a human to
+make several decisions and provide additional value to titles that are
+not generally accessible in some way. Some documents, however, may
+have enough information without the additional attention to justify a
+quick and dirty translation. And, this is where the Send To Braille
+shortcut comes in.</p>
 
 
 	<a name="Installation"></a>
@@ -44,7 +64,7 @@ h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display
 
 	<ol>
 	<li>Open File Explorer (On newer versions of Windows, use Windows + E.)</li>
-		<li>Highlight the file to translate.</li>
+		<li>Highlight the file(s) to translate.</li>
 		<li>Right click or press the Applications key. Windows responds with a context menu.</li>
 		<li>Select Send To from the context menu. Windows responds with a list of places to which you may send the file.</li>
 		<li>Select Braille or Uncontracted from the Send To list.</li>
@@ -88,6 +108,21 @@ h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display
 <h3 >Other Platforms<a href="#Other-Platforms" class="wiki-anchor">&para;</a></h3>
 
 
-	<p>This shortcut runs on Windows. We encourage others to create similar shortcuts for OSX or Linux.</p>
+	<p>This shortcut runs on Windows. We encourage others to create
+similar shortcuts for OSX or Linux.  With help from the communitty we
+will be willing to host other versions, test, and sign them for all to use.</p>
+
+
+<h3>build your own version<h3>
+<ol>
+<LI>Download latest Inno Setup 6.2 is recommended</li>
+<li>unzip pandoc into dist folder.</li>
+<li>remove pandoc.zip</li>
+<li>Select lt.iss to open inno setup</p></li>
+<li>Press F9 when Inno setup is up</li>
+<li>In the send-to-braille\output folder a lt_setup.exe will be generated</li>
+<li>Enjoy</li>
+</ol></li></ul>
+
 </body>
 </html>

@@ -6,10 +6,37 @@
 <h1>What's new in Lou Translate&trade;</h1>
 <div style="font-size: 16pt; font-weight: bold">
 American Printing House for the Blind, Inc.</div><br/><br/>
-<h2>Revision History</h2><br/><ul>
+<h2>Revision History</h2><br/>
 
-<p>Version x</p><li>This is the initial release of this product, and there are currently no revisions.  You may wish to check <a href="http://www.aph.org/tech">www.aph.org/tech</a> for updates to this information.</li>
+<h3>Version 2.0, March  2022</h3>
 
+<UL>
+<li><p>Updated pandoc to 2.17.1.1</p></li>
+<li><p>Updated Liblouis to 3.21.0</p></li>
+<li><p>Added the ability to convert multiple files by selecting them all at once</p></li>
+<li><p>Added the ability for anyone with Inno setup 6.2 or later installed to be able to build their own version.</p><ol>
+<LI>Download latest Inno Setup</li>
+<li>unzip pandoc into dist folder.</li>
+<li>remove pandoc.zip</li>
+<li>Select lt.iss to open inno setup</p></li>
+<li>Press F9 when Inno setup is up</li>
+<li>In the send-to-braille\output folder a lt_setup.exe will be generated</li>
+</ol></li></ul>
 
+<li><p></p></li>
 </ul>
-</body></html>
+
+<h3>Version 1.0 updated Made possible by Timothy Wynn (TW)</h3>
+
+<ul>
+<li>Moved to github by Ken Perry</li>
+<li><p>Adds Utf8n.exe from Jamal Mazrui's EasyEncode project. This
+executable takes an input, and reencodes as UTF-8 without the leading
+byte order mark (BOM). This executable is necessary to add UTF-8
+reencoding functionality to send-to-braille. (TW)</p></li>
+<li><p>Modifies lt.bat and lt1.bat to use the UTF-8 encoded file from Utf8n: (TW)<p><ol>
+<li>Creates a temporary UTF-8 file in the %temp% directory.</li>
+<li>Runs the conversion command, passing through the UTF-8-encoded file rather than %1.</li>
+<li>Deletes the temporary file.</li>
+</ol></li>
+</ul>
