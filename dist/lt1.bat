@@ -9,6 +9,7 @@ rem call %x%settable.bat
 
 rem pandoc to text then LouTran to braille with .brl appended to original file name, avoiding UTF-8 encoding when appropriate:
 set utf8=false
+:LOOP
 if /I not "%~x1"==".docx" if /I not "%~x1"==".epub" if /I not "%~x1"==".odt" (
     set utf8=true
     copy /B %1 "%temp%\Utf8n%~x1"
@@ -25,3 +26,5 @@ rem %x%bz.jar "%~1.brl"
 rem if you want, add a line like the one below to copy to a card. Set target to your drive
 set target=f:
 rem copy "%~1.brl" target
+shift
+if not [%1]==[] goto :Loop
