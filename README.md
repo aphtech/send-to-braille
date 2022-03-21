@@ -39,10 +39,13 @@ Installation[¶](#Installation){.wiki-anchor}
 
 To install the shortcut, run the [lt\_setup.exe
 file](http://tech.aph.org/lt_setup.exe){.external}. Once installed, you
-have a new item in the Send To folder called Braille.\
-Alternatively, unzip the files from the [LouTran archive
-file](http://tech.aph.org/redmine/attachments/24/LouTran.zip){.external}
-and run the install.bat file inside.
+have three new items in the Send To folder.
+
+  Shortcut               Description
+  ---------------------- ---------------------------------------------------
+  Braille                Converts selected file(s) to braille
+  Back from braille      Converts selected file(s) to ascii text
+  Uncontracted braille   Converts selected file(s) to uncontracted braille
 
 []{#How-to-Use}
 
@@ -57,7 +60,7 @@ To translate a file, do the following:
     context menu.
 4.  Select Send To from the context menu. Windows responds with a list
     of places to which you may send the file.
-5.  Select Braille or Uncontracted from the Send To list.
+5.  Select Braille or Un contracted from the Send To list.
 
 If you want to reverse translate a document back from braille, select
 Back from Braille from the same context menu. []{#How-it-Works}
@@ -110,7 +113,7 @@ translation or copy the file straight to an SD card or another device.
 ### Other Platforms[¶](#Other-Platforms){.wiki-anchor}
 
 This shortcut runs on Windows. We encourage others to create similar
-shortcuts for OSX or Linux. With help from the communitty we will be
+shortcuts for OSX or Linux. With help from the community we will be
 willing to host other versions, test, and sign them for all to use.
 
 ### build your own version

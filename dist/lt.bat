@@ -6,7 +6,7 @@ set louis_tablepath=%x%tables\
 set louflg=""
 rem Set the translation table, this one is English UEB contracted
 set table=en-ueb-g2.ctb
-call %x%settable.bat
+rem call %x%settable.bat
 
 rem pandoc to text then LouTran to braille with .brl appended to original file name, avoiding UTF-8 encoding when appropriate:
 set utf8=false

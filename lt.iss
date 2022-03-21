@@ -29,7 +29,7 @@ MinVersion = 0,6.0
 
 [Files]
 Source: "dist\*.*"; DestDir: "{app}"; Flags: recursesubdirs;
-Source: doc\lt_*; DestDir: {app};
+;Source: doc\lt_*; DestDir: {app};
 ;Source: ..\doc\lt_image\*.*; DestDir: {app}\lt_image;
 
 [Icons]
