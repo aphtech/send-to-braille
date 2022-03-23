@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <title>Send to Braille</title>
@@ -18,8 +18,8 @@ h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display
 </head>
 <body>
 
-<p><div style="float:left"><img src="http://tech.aph.org/lt/lt_image/aph_72.png" alt="APH logo" /></div></p>
-<p><div style="float:right"><img src="http://tech.aph.org/lt/lt_image/aph_72.png" alt="APH logo" /></div></p>
+<p><div style="float:left"><img src="https://tech.aph.org/lt/lt_image/aph_72.png" alt="APH logo" /></div></p>
+<p><div style="float:right"><img src="https://tech.aph.org/lt/lt_image/aph_72.png" alt="APH logo" /></div></p>
 
 <a name="Send-to-Braille"></a>
 <h1 >Send to<br /> Braille<a href="#Send-to-Braille" class="wiki-anchor">&para;</a></h1>
@@ -37,9 +37,9 @@ braille. It is a translation only, much like you get from screen
 reader output. It is not formatted in any way except to try to
 preserve paragraphs. Headings and list items are generally on their
 own lines, but exact results depend on the original file. <a
-href="http://www.pandoc.org" class="external">Pandoc</a> converts the
+href="https://www.pandoc.org" class="external">Pandoc</a> converts the
 file into plain text before sending it to the <a
-href="http://www.liblouis.org" class="external">Liblouis</a>
+href="https://www.liblouis.org" class="external">Liblouis</a>
 translator.<br />Correct braille transcription depends on a human to
 make several decisions and provide additional value to titles that are
 not generally accessible in some way. Some documents, however, may
@@ -47,13 +47,18 @@ have enough information without the additional attention to justify a
 quick and dirty translation. And, this is where the Send To Braille
 shortcut comes in.</p>
 
+<h2>What's new in version 2.0.0<h2>
+<div>
+<a href="lt_new.htm">What's New</a>
+</dev>
+
 
 	<a name="Installation"></a>
 <h2 >Installation<a href="#Installation" class="wiki-anchor">&para;</a></h2>
 
 
 	<p>To install the shortcut, run the <a
-href="http://tech.aph.org/lt_setup.exe" class="external">lt_setup.exe
+href="https://tech.aph.org/lt_setup.exe" class="external">lt_setup.exe
 file</a>. Once installed, you have three new items in the Send To folder.</p>
 <table>
 <tr><th>Shortcut</th><th>Description</th></tr>
@@ -83,7 +88,7 @@ file</a>. Once installed, you have three new items in the Send To folder.</p>
 <h2 >How it Works<a href="#How-it-Works" class="wiki-anchor">&para;</a></h2>
 
 
-	<p>The Send To Braille Shortcut employs the services of two excellent libraries to do its job. <br /><a href="http://pandoc.org" class="external">Pandoc</a> is a file conversion tool.<br /><a href="http://liblouis.org" class="external">Liblouis</a> is an international braille code translator.<br />Send To Braille is a shortcut that combines these two tools and gives you an interface to use them conveniently.</p>
+	<p>The Send To Braille Shortcut employs the services of two excellent libraries to do its job. <br /><a href="https://pandoc.org" class="external">Pandoc</a> is a file conversion tool.<br /><a href="https://liblouis.org" class="external">Liblouis</a> is an international braille code translator.<br />Send To Braille is a shortcut that combines these two tools and gives you an interface to use them conveniently.</p>
 
 
 	<a name="Customization"></a>
@@ -100,7 +105,7 @@ file</a>. Once installed, you have three new items in the Send To folder.</p>
 	<ol>
 	<li>Open the SendToBraille folder by activating the Run command and typing <span>userprofile</span>\appdata\local\SendToBraille into the edit box that appears, then press Enter.</li>
 		<li>Find the file called lt.bat and open it with a plain text editor.</li>
-		<li>Find the line that says, "set table=en-ueb-g2.ctb" and change the "en-ueb-g2.ctb" to the Liblouis translation table file you wish to use. Consult the <a href="http://liblouis.org/documentation/liblouis.html#Overview" class="external">Liblouis documentation</a> for which tables to use for the language and code of interest.</li>
+		<li>Find the line that says, "set table=en-ueb-g2.ctb" and change the "en-ueb-g2.ctb" to the Liblouis translation table file you wish to use. Consult the <a href="https://liblouis.org/documentation/liblouis.html#Overview" class="external">Liblouis documentation</a> for which tables to use for the language and code of interest.</li>
 	</ol>
 
 

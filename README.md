@@ -1,9 +1,9 @@
 ::: {style="float:left"}
-![APH logo](http://tech.aph.org/lt/lt_image/aph_72.png)
+![APH logo](https://tech.aph.org/lt/lt_image/aph_72.png)
 :::
 
 ::: {style="float:right"}
-![APH logo](http://tech.aph.org/lt/lt_image/aph_72.png)
+![APH logo](https://tech.aph.org/lt/lt_image/aph_72.png)
 :::
 
 []{#Send-to-Braille}
@@ -22,9 +22,9 @@ Send To Braille Shortcut produces \"Quick and dirty\" braille. It is a
 translation only, much like you get from screen reader output. It is not
 formatted in any way except to try to preserve paragraphs. Headings and
 list items are generally on their own lines, but exact results depend on
-the original file. [Pandoc](http://www.pandoc.org){.external} converts
+the original file. [Pandoc](https://www.pandoc.org){.external} converts
 the file into plain text before sending it to the
-[Liblouis](http://www.liblouis.org){.external} translator.\
+[Liblouis](https://www.liblouis.org){.external} translator.\
 Correct braille transcription depends on a human to make several
 decisions and provide additional value to titles that are not generally
 accessible in some way. Some documents, however, may have enough
@@ -32,13 +32,18 @@ information without the additional attention to justify a quick and
 dirty translation. And, this is where the Send To Braille shortcut comes
 in.
 
-[]{#Installation}
+What\'s new in version 2.0.0
+----------------------------
+
+<div>
+
+[What\'s New](lt_new.htm) []{#Installation}
 
 Installation[¶](#Installation){.wiki-anchor}
 --------------------------------------------
 
 To install the shortcut, run the [lt\_setup.exe
-file](http://tech.aph.org/lt_setup.exe){.external}. Once installed, you
+file](https://tech.aph.org/lt_setup.exe){.external}. Once installed, you
 have three new items in the Send To folder.
 
   Shortcut               Description
@@ -70,8 +75,8 @@ How it Works[¶](#How-it-Works){.wiki-anchor}
 
 The Send To Braille Shortcut employs the services of two excellent
 libraries to do its job.\
-[Pandoc](http://pandoc.org){.external} is a file conversion tool.\
-[Liblouis](http://liblouis.org){.external} is an international braille
+[Pandoc](https://pandoc.org){.external} is a file conversion tool.\
+[Liblouis](https://liblouis.org){.external} is an international braille
 code translator.\
 Send To Braille is a shortcut that combines these two tools and gives
 you an interface to use them conveniently.
@@ -98,7 +103,7 @@ do the following:
 3.  Find the line that says, \"set table=en-ueb-g2.ctb\" and change the
     \"en-ueb-g2.ctb\" to the Liblouis translation table file you wish to
     use. Consult the [Liblouis
-    documentation](http://liblouis.org/documentation/liblouis.html#Overview){.external}
+    documentation](https://liblouis.org/documentation/liblouis.html#Overview){.external}
     for which tables to use for the language and code of interest.
 
 []{#Additional-Tasks}
@@ -128,3 +133,5 @@ willing to host other versions, test, and sign them for all to use.
 6.  In the send-to-braille\\output folder a lt\_setup.exe will be
     generated
 7.  Enjoy
+
+</div>
